@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Sample Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .package-preview {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Sample Data for Testing Navigation</h1>
+    
+    <p>This will add sample packages for each category: Trip, Cab, and Food</p>
+    
+    <button onclick="addSampleData()">Add Sample Data to Firebase</button>
+    <button onclick="clearAllData()">Clear All Data</button>
+    
+    <div id="status"></div>
+    
+    <div id="preview"></div>
+
+    <script>
+        const FIREBASE_URL = 'https://travaling-76f20-default-rtdb.firebaseio.com';
+
+        const sampleData = [
+            // Trip packages
+            {
+                name: 'Goa Beach Paradise',
+                description: 'Relax on pristine beaches with crystal clear waters',
+                price: 15999,
+                duration: '4 Days',
+                location: 'Goa',
+                type: 'trip',
+                imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop'
+            },
+            {
+                name: 'Himachal Mountain Trek',
+                description: 'Adventure trekking in the beautiful Himalayas',
+                price: 12999,
+                duration: '6 Days',
+                location: 'Himachal Pradesh',
+                type: 'trip',
+                imageUrl: 'https://images.unsplash.com/photo-1464822759844-d150baec3e5e?w=400&h=300&fit=crop'
+            },
+            
+            // Cab packages
+            {
+                name: 'Airport Pickup Service',
+                description: 'Comfortable pickup and drop service from airport',
+                price: 899,
+                duration: 'One Way',
+                location: 'City Wide',
+                type: 'cab',
+                imageUrl: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&h=300&fit=crop'
+            },
+            {
+                name: 'City Tour Taxi',
+                description: 'Full day city tour with experienced driver',
+                price: 2499,
+                duration: '8 Hours',
+                location: 'Local City',
+                type: 'cab',
+                imageUrl: 'https://images.unsplash.com/photo-1563293342-c4a1e73b4080?w=400&h=300&fit=crop'
+            },
+            
+            // Food packages
+            {
+                name: 'Traditional Thali Delivery',
+                description: 'Authentic home-style meals delivered fresh',
+                price: 199,
+                duration: 'Per Meal',
+                location: 'Local Area',
+                type: 'food',
+                imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop'
+            },
+            {
+                name: 'Party Catering Package',
+                description: 'Complete catering service for events and parties',
+                price: 4999,
+                duration: 'Per Event',
+                location: 'Event Location',
+                type: 'food',
+                imageUrl: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop'
+            }
+        ];
+
+        function showStatus(message, type = 'success') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = type;
+            statusDiv.innerHTML = message;
+        }
+
+        function showPreview() {
+            const previewDiv = document.getElementById('preview');
+            previewDiv.innerHTML = '<h2>Sample Data Preview:</h2>' + 
+                sampleData.map(pkg => `
+                    <div class="package-preview">
+                        <h3>${pkg.name} (${pkg.type.toUpperCase()})</h3>
+                        <p>${pkg.description}</p>
+                        <p><strong>Price:</strong> ₹${pkg.price} | <strong>Duration:</strong> ${pkg.duration}</p>
+                        <p><strong>Location:</strong> ${pkg.location}</p>
+                    </div>
+                `).join('');
+        }
+
+        async function addSampleData() {
+            showStatus('Adding sample data...', 'success');
+            
+            try {
+                for (let i = 0; i < sampleData.length; i++) {
+                    const pkg = sampleData[i];
+                    const response = await fetch(`${FIREBASE_URL}/packages.json`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(pkg)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Failed to add ${pkg.name}`);
+                    }
+                }
+                
+                showStatus(`Successfully added ${sampleData.length} sample packages! You can now test the navigation on your main page.`, 'success');
+                showPreview();
+                
+            } catch (error) {
+                showStatus(`Error adding sample data: ${error.message}`, 'error');
+            }
+        }
+
+        async function clearAllData() {
+            if (!confirm('Are you sure you want to delete all packages?')) return;
+            
+            showStatus('Clearing all data...', 'success');
+            
+            try {
+                const response = await fetch(`${FIREBASE_URL}/packages.json`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    showStatus('All data cleared successfully!', 'success');
+                    document.getElementById('preview').innerHTML = '';
+                } else {
+                    throw new Error('Failed to clear data');
+                }
+            } catch (error) {
+                showStatus(`Error clearing data: ${error.message}`, 'error');
+            }
+        }
+
+        // Show preview on page load
+        showPreview();
+    </script>
+</body>
+</html>

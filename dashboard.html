@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Thanvish Travels</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1 class="logo"><a href="index.html">Thanvish Travels</a></h1>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li class="nav-dropdown">
+                            <a href="index.html#services" class="nav-link">Services <i class="dropdown-icon">▼</i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="travel-packages.html" class="dropdown-link">Travel Packages</a></li>
+                                <li><a href="cab-services.html" class="dropdown-link">Cab Services</a></li>
+                                <li><a href="food-delivery.html" class="dropdown-link">Food Delivery</a></li>
+                                <li><a href="all-services.html" class="dropdown-link">View All</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                    
+                    <div class="nav-buttons">
+                        <span class="admin-badge">Admin Panel</span>
+                        <a href="index.html" class="btn-outline">View Site</a>
+                        <a href="#" class="btn-danger" id="header-logout">Logout</a>
+                    </div>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <aside class="sidebar">
+            <h2>Admin Panel</h2>
+            <nav>
+                <ul>
+                    <li><a href="#" data-section="packages" class="active">Manage Packages</a></li>
+                    <li><a href="#" data-section="bookings">View Bookings</a></li>
+                    <li><a href="#" id="logout">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <!-- Packages Section -->
+            <section id="packages-section" class="section active">
+                <div class="section-header">
+                    <h1>Manage Packages</h1>
+                    <button class="btn-primary" onclick="showAddPackageForm()">Add New Package</button>
+                </div>
+
+                <div class="filters">
+                    <button class="filter-btn active" data-type="all">All</button>
+                    <button class="filter-btn" data-type="trip">Trips</button>
+                    <button class="filter-btn" data-type="cab">Cabs</button>
+                    <button class="filter-btn" data-type="food">Food</button>
+                </div>
+
+                <div id="packages-list" class="packages-list">
+                    <!-- Packages will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Bookings Section -->
+            <section id="bookings-section" class="section">
+                <h1>Booking Requests</h1>
+                <div id="bookings-list" class="bookings-list">
+                    <!-- Bookings will be loaded here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Package Modal -->
+    <div id="package-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Add New Package</h2>
+            <form id="package-form">
+                <input type="hidden" id="package-id">
+                
+                <div class="form-group">
+                    <label for="package-name">Package Name *</label>
+                    <input type="text" id="package-name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="package-type">Type *</label>
+                    <select id="package-type" name="type" required>
+                        <option value="">Select Type</option>
+                        <option value="trip">Trip</option>
+                        <option value="cab">Cab</option>
+                        <option value="food">Food</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="package-description">Description *</label>
+                    <textarea id="package-description" name="description" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="package-price">Price (₹) *</label>
+                    <input type="number" id="package-price" name="price" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="package-location">Location</label>
+                    <input type="text" id="package-location" name="location">
+                </div>
+
+                <div class="form-group">
+                    <label for="package-duration">Duration</label>
+                    <input type="text" id="package-duration" name="duration" placeholder="e.g., 3 Days 2 Nights">
+                </div>
+
+                <div class="form-group">
+                    <label for="package-image">Image URL</label>
+                    <input type="url" id="package-image" name="imageUrl" placeholder="https://example.com/image.jpg">
+                </div>
+
+                <div class="form-group">
+                    <label for="package-highlights">Highlights (comma separated)</label>
+                    <input type="text" id="package-highlights" name="highlights" placeholder="Breakfast included, AC transport">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Save Package</button>
+                    <button type="button" class="btn-secondary" onclick="closePackageModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section scroll-reveal from-left">
+                    <h3>Thanvish Travels</h3>
+                    <p>Your trusted partner for amazing travel experiences, comfortable cab rides, and delicious food delivery.</p>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" data-filter="all">All Packages</a></li>
+                        <li><a href="#" data-filter="trip">Travel Packages</a></li>
+                        <li><a href="#" data-filter="cab">Cab Services</a></li>
+                        <li><a href="#" data-filter="food">Food Delivery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="icon-phone"></i> +91 80999 96622</p>
+                        <p><i class="icon-email"></i> info@thanvishtravels.com</p>
+                        <p><i class="icon-location"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                <div class="footer-section scroll-reveal from-right">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="icon-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom scroll-reveal scale-up">
+                <p>&copy; 2024 Thanvish Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

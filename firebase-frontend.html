@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Agency - Firebase Integration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #34495e;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        nav button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        nav button:hover {
+            background-color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .package-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .package-content {
+            padding: 1.5rem;
+        }
+
+        .package-card h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .book-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .book-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Booking Form */
+        .booking-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Bookings Table */
+        .bookings-table {
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .bookings-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .bookings-table th,
+        .bookings-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .bookings-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .bookings-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .status-confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Travel Agency - Firebase Edition</h1>
+        <p>Your journey begins here</p>
+    </header>
+
+    <nav>
+        <button onclick="showSection('packages')">View Packages</button>
+        <button onclick="showSection('booking')">Book Now</button>
+        <button onclick="showSection('my-bookings')">My Bookings</button>
+        <button onclick="showSection('admin')">Admin</button>
+    </nav>
+
+    <div class="container">
+        <!-- Packages Section -->
+        <section id="packages" class="section active">
+            <h2>Available Travel Packages</h2>
+            <div id="loading" class="loading">Loading packages...</div>
+            <div id="packages-grid" class="packages-grid"></div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking" class="section">
+            <h2>Book Your Package</h2>
+            <form id="booking-form" class="booking-form">
+                <div class="form-group">
+                    <label for="package-select">Select Package:</label>
+                    <select id="package-select" required>
+                        <option value="">Choose a package...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customer-name">Full Name:</label>
+                    <input type="text" id="customer-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customer-email">Email:</label>
+                    <input type="email" id="customer-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customer-phone">Phone:</label>
+                    <input type="tel" id="customer-phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="travel-date">Travel Date:</label>
+                    <input type="date" id="travel-date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="num-travelers">Number of Travelers:</label>
+                    <input type="number" id="num-travelers" min="1" value="1" required>
+                </div>
+                
+                <button type="submit" class="book-btn">Confirm Booking</button>
+            </form>
+            <div id="booking-message"></div>
+        </section>
+
+        <!-- My Bookings Section -->
+        <section id="my-bookings" class="section">
+            <h2>My Bookings</h2>
+            <div class="form-group">
+                <label for="search-email">Enter your email to view bookings:</label>
+                <input type="email" id="search-email" placeholder="your@email.com">
+                <button onclick="searchBookings()" class="book-btn" style="margin-top: 1rem;">Search</button>
+            </div>
+            <div id="bookings-list"></div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin" class="section">
+            <h2>Admin Dashboard</h2>
+            <div class="bookings-table">
+                <h3>All Bookings</h3>
+                <div id="admin-bookings"></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const FIREBASE_URL = 'https://travaling-76f20-default-rtdb.firebaseio.com';
+        
+        // No sample data - start with empty packages
+        let packages = [];
+        
+        let bookings = [];
+
+        // Show/hide sections
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            if (sectionId === 'admin') {
+                loadAllBookings();
+            }
+        }
+
+        // Load packages from Firebase
+        async function loadPackages() {
+            try {
+                const response = await fetch(`${FIREBASE_URL}/packages.json`);
+                const data = await response.json();
+                
+                if (data) {
+                    packages = Object.entries(data).map(([key, value]) => ({
+                        ...value,
+                        firebaseKey: key
+                    }));
+                } else {
+                    packages = [];
+                }
+                
+                displayPackages();
+                populatePackageSelect();
+                document.getElementById('loading').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading packages:', error);
+                packages = [];
+                displayPackages();
+                populatePackageSelect();
+                document.getElementById('loading').innerHTML = '<div class="error">No packages available. Please add packages via admin dashboard.</div>';
+            }
+        }
+
+        // Display packages
+        function displayPackages() {
+            const grid = document.getElementById('packages-grid');
+            grid.innerHTML = packages.map(pkg => `
+                <div class="package-card">
+                    <img src="${pkg.image || 'https://via.placeholder.com/300x200?text=' + encodeURIComponent(pkg.name)}" alt="${pkg.name}">
+                    <div class="package-content">
+                        <h3>${pkg.name}</h3>
+                        <p>${pkg.description}</p>
+                        <p class="price">$${pkg.price}</p>
+                        <p><strong>Duration:</strong> ${pkg.duration} days</p>
+                        <button class="book-btn" onclick="bookPackage('${pkg.id}')">Book Now</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Populate package select dropdown
+        function populatePackageSelect() {
+            const select = document.getElementById('package-select');
+            select.innerHTML = '<option value="">Choose a package...</option>' +
+                packages.map(pkg => `<option value="${pkg.id}">${pkg.name} - $${pkg.price}</option>`).join('');
+        }
+
+        // Book a package
+        function bookPackage(packageId) {
+            const pkg = packages.find(p => p.id === packageId);
+            if (pkg) {
+                document.getElementById('package-select').value = packageId;
+                showSection('booking');
+            }
+        }
+
+        // Handle booking form submission
+        document.getElementById('booking-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const bookingData = {
+                id: 'booking_' + Date.now(),
+                packageId: document.getElementById('package-select').value,
+                customerName: document.getElementById('customer-name').value,
+                customerEmail: document.getElementById('customer-email').value,
+                customerPhone: document.getElementById('customer-phone').value,
+                travelDate: document.getElementById('travel-date').value,
+                numberOfTravelers: parseInt(document.getElementById('num-travelers').value),
+                bookingDate: new Date().toISOString(),
+                status: 'confirmed'
+            };
+
+            const selectedPackage = packages.find(p => p.id === bookingData.packageId);
+            bookingData.packageName = selectedPackage ? selectedPackage.name : 'Unknown Package';
+            bookingData.totalPrice = selectedPackage ? selectedPackage.price * bookingData.numberOfTravelers : 0;
+
+            try {
+                const response = await fetch(`${FIREBASE_URL}/bookings/${bookingData.id}.json`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookingData)
+                });
+
+                if (response.ok) {
+                    document.getElementById('booking-message').innerHTML = 
+                        '<div class="success">Booking confirmed! Your booking ID is: ' + bookingData.id + '</div>';
+                    document.getElementById('booking-form').reset();
+                } else {
+                    throw new Error('Booking failed');
+                }
+            } catch (error) {
+                document.getElementById('booking-message').innerHTML = 
+                    '<div class="error">Error creating booking. Please try again.</div>';
+            }
+        });
+
+        // Search bookings by email
+        async function searchBookings() {
+            const email = document.getElementById('search-email').value;
+            if (!email) return;
+
+            try {
+                const response = await fetch(`${FIREBASE_URL}/bookings.json?orderBy="customerEmail"&equalTo="${email}"`);
+                const data = await response.json();
+                
+                if (data && Object.keys(data).length > 0) {
+                    const userBookings = Object.values(data);
+                    displayUserBookings(userBookings);
+                } else {
+                    document.getElementById('bookings-list').innerHTML = 
+                        '<div class="error">No bookings found for this email.</div>';
+                }
+            } catch (error) {
+                document.getElementById('bookings-list').innerHTML = 
+                    '<div class="error">Error searching bookings. Please try again.</div>';
+            }
+        }
+
+        // Display user bookings
+        function displayUserBookings(userBookings) {
+            const bookingsList = document.getElementById('bookings-list');
+            bookingsList.innerHTML = `
+                <div class="bookings-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Package</th>
+                                <th>Travel Date</th>
+                                <th>Travelers</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${userBookings.map(booking => `
+                                <tr>
+                                    <td>${booking.id}</td>
+                                    <td>${booking.packageName}</td>
+                                    <td>${new Date(booking.travelDate).toLocaleDateString()}</td>
+                                    <td>${booking.numberOfTravelers}</td>
+                                    <td>$${booking.totalPrice}</td>
+                                    <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        // Load all bookings for admin
+        async function loadAllBookings() {
+            try {
+                const response = await fetch(`${FIREBASE_URL}/bookings.json`);
+                const data = await response.json();
+                
+                if (data) {
+                    const allBookings = Object.values(data);
+                    displayAdminBookings(allBookings);
+                }
+            } catch (error) {
+                document.getElementById('admin-bookings').innerHTML = 
+                    '<div class="error">Error loading bookings.</div>';
+            }
+        }
+
+        // Display admin bookings
+        function displayAdminBookings(allBookings) {
+            const adminBookings = document.getElementById('admin-bookings');
+            adminBookings.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Package</th>
+                            <th>Travel Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${allBookings.map(booking => `
+                            <tr>
+                                <td>${booking.id}</td>
+                                <td>${booking.customerName}</td>
+                                <td>${booking.customerEmail}</td>
+                                <td>${booking.packageName}</td>
+                                <td>${new Date(booking.travelDate).toLocaleDateString()}</td>
+                                <td>$${booking.totalPrice}</td>
+                                <td><span class="status-badge status-${booking.status}">${booking.status}</span></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Initialize on page load
+        loadPackages();
+    </script>
+</body>
+</html>

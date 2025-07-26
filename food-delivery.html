@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery - Thanvish Travels</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page specific styles */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.9), rgba(211, 84, 0, 0.9)), 
+                        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600') center/cover;
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .page-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .page-hero-content p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+        
+        .services-main {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+        
+        .cuisine-filter {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            background: white;
+            color: #2c3e50;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #e67e22;
+            color: white;
+            border-color: #e67e22;
+            transform: translateY(-2px);
+        }
+        
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .restaurant-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .restaurant-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .restaurant-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .rating-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .restaurant-content {
+            padding: 2rem;
+        }
+        
+        .restaurant-name {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .restaurant-cuisine {
+            color: #e67e22;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .restaurant-description {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .restaurant-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .delivery-time,
+        .min-order {
+            text-align: center;
+        }
+        
+        .delivery-time span,
+        .min-order span {
+            display: block;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .delivery-time strong,
+        .min-order strong {
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .order-btn {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .order-btn:hover {
+            background: linear-gradient(135deg, #d35400, #ba4a00);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+        
+        .features-section {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .feature-description {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+        
+        .special-offers {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            text-align: center;
+        }
+        
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .offer-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .offer-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .offer-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .offer-code {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .restaurants-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation Elements -->
+    <div class="background-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <div class="geometric-shapes">
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+    </div>
+
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1 class="logo"><a href="index.html">Thanvish Travels</a></h1>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li class="nav-dropdown">
+                            <a href="#" class="nav-link active">Services <i class="dropdown-icon">▼</i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="travel-packages.html" class="dropdown-link">Travel Packages</a></li>
+                                <li><a href="cab-services.html" class="dropdown-link">Cab Services</a></li>
+                                <li><a href="food-delivery.html" class="dropdown-link">Food Delivery</a></li>
+                                <li><a href="all-services.html" class="dropdown-link">View All</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                    
+                    <div class="nav-buttons">
+                        <a href="#order-food" class="btn-primary">Order Food</a>
+                    </div>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="page-hero-content scroll-reveal from-bottom">
+            <h1>Food Delivery</h1>
+            <p>Delicious meals delivered fresh to your doorstep. From local favorites to international cuisine, satisfy your cravings with our premium food delivery service.</p>
+        </div>
+    </section>
+
+    <!-- Restaurants Section -->
+    <section class="services-main" id="order-food">
+        <div class="container">
+            <div class="cuisine-filter">
+                <h2 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;">Order From Top Restaurants</h2>
+                <p style="color: #7f8c8d; font-size: 1.2rem;">Choose from a variety of cuisines and restaurants</p>
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Cuisines</button>
+                    <button class="filter-btn" data-filter="indian">Indian</button>
+                    <button class="filter-btn" data-filter="chinese">Chinese</button>
+                    <button class="filter-btn" data-filter="italian">Italian</button>
+                    <button class="filter-btn" data-filter="fast-food">Fast Food</button>
+                    <button class="filter-btn" data-filter="desserts">Desserts</button>
+                </div>
+            </div>
+
+            <div class="restaurants-grid">
+                <!-- Indian Restaurants -->
+                <div class="restaurant-card" data-cuisine="indian">
+                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500');">
+                        <div class="restaurant-badge">Indian</div>
+                        <div class="rating-badge">⭐ 4.5</div>
+                    </div>
+                    <div class="restaurant-content">
+                        <h3 class="restaurant-name">Spice Garden</h3>
+                        <p class="restaurant-cuisine">North Indian • South Indian</p>
+                        <p class="restaurant-description">Authentic Indian cuisine with traditional spices and flavors. Known for biryani, curries, and tandoor dishes.</p>
+                        <div class="restaurant-info">
+                            <div class="delivery-time">
+                                <strong>30-40 min</strong>
+                                <span>Delivery Time</span>
+                            </div>
+                            <div class="min-order">
+                                <strong>₹200</strong>
+                                <span>Min Order</span>
+                            </div>
+                        </div>
+                        <button class="order-btn" onclick="orderFood('Spice Garden')">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" data-cuisine="chinese">
+                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500');">
+                        <div class="restaurant-badge">Chinese</div>
+                        <div class="rating-badge">⭐ 4.3</div>
+                    </div>
+                    <div class="restaurant-content">
+                        <h3 class="restaurant-name">Dragon Palace</h3>
+                        <p class="restaurant-cuisine">Chinese • Thai • Asian</p>
+                        <p class="restaurant-description">Delicious Chinese and Asian cuisine with fresh ingredients. Popular for noodles, fried rice, and dim sum.</p>
+                        <div class="restaurant-info">
+                            <div class="delivery-time">
+                                <strong>25-35 min</strong>
+                                <span>Delivery Time</span>
+                            </div>
+                            <div class="min-order">
+                                <strong>₹250</strong>
+                                <span>Min Order</span>
+                            </div>
+                        </div>
+                        <button class="order-btn" onclick="orderFood('Dragon Palace')">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" data-cuisine="italian">
+                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500');">
+                        <div class="restaurant-badge">Italian</div>
+                        <div class="rating-badge">⭐ 4.7</div>
+                    </div>
+                    <div class="restaurant-content">
+                        <h3 class="restaurant-name">Bella Italia</h3>
+                        <p class="restaurant-cuisine">Italian • Continental</p>
+                        <p class="restaurant-description">Authentic Italian pizzas and pasta made with imported ingredients. Wood-fired pizzas and creamy pasta.</p>
+                        <div class="restaurant-info">
+                            <div class="delivery-time">
+                                <strong>35-45 min</strong>
+                                <span>Delivery Time</span>
+                            </div>
+                            <div class="min-order">
+                                <strong>₹300</strong>
+                                <span>Min Order</span>
+                            </div>
+                        </div>
+                        <button class="order-btn" onclick="orderFood('Bella Italia')">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" data-cuisine="fast-food">
+                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500');">
+                        <div class="restaurant-badge">Fast Food</div>
+                        <div class="rating-badge">⭐ 4.2</div>
+                    </div>
+                    <div class="restaurant-content">
+                        <h3 class="restaurant-name">Burger Junction</h3>
+                        <p class="restaurant-cuisine">Burgers • Sandwiches • Fries</p>
+                        <p class="restaurant-description">Juicy burgers, crispy fries, and refreshing shakes. Perfect for quick meals and group orders.</p>
+                        <div class="restaurant-info">
+                            <div class="delivery-time">
+                                <strong>20-30 min</strong>
+                                <span>Delivery Time</span>
+                            </div>
+                            <div class="min-order">
+                                <strong>₹150</strong>
+                                <span>Min Order</span>
+                            </div>
+                        </div>
+                        <button class="order-btn" onclick="orderFood('Burger Junction')">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" data-cuisine="desserts">
+                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500');">
+                        <div class="restaurant-badge">Desserts</div>
+                        <div class="rating-badge">⭐ 4.6</div>
+                    </div>
+                    <div class="restaurant-content">
+                        <h3 class="restaurant-name">Sweet Dreams</h3>
+                        <p class="restaurant-cuisine">Cakes • Ice Cream • Pastries</p>
+                        <p class="restaurant-description">Delicious cakes, pastries, and ice creams for all occasions. Fresh baked goods and custom cakes available.</p>
+                        <div class="restaurant-info">
+                            <div class="delivery-time">
+                                <strong>40-50 min</strong>
+                                <span>Delivery Time</span>
+                            </div>
+                            <div class="min-order">
+                                <strong>₹200</strong>
+                                <span>Min Order</span>
+                            </div>
+                        </div>
+                        <button class="order-btn" onclick="orderFood('Sweet Dreams')">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" data-cuisine="indian">
+                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=500');">
+                        <div class="restaurant-badge">South Indian</div>
+                        <div class="rating-badge">⭐ 4.4</div>
+                    </div>
+                    <div class="restaurant-content">
+                        <h3 class="restaurant-name">Dosa Corner</h3>
+                        <p class="restaurant-cuisine">South Indian • Breakfast</p>
+                        <p class="restaurant-description">Crispy dosas, fluffy idlis, and filter coffee. Authentic South Indian breakfast and meals served fresh.</p>
+                        <div class="restaurant-info">
+                            <div class="delivery-time">
+                                <strong>25-35 min</strong>
+                                <span>Delivery Time</span>
+                            </div>
+                            <div class="min-order">
+                                <strong>₹180</strong>
+                                <span>Min Order</span>
+                            </div>
+                        </div>
+                        <button class="order-btn" onclick="orderFood('Dosa Corner')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;">Why Order With Us</h2>
+                <p style="color: #7f8c8d; font-size: 1.2rem;">Experience the best food delivery service in the city</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🚚</div>
+                    <h3 class="feature-title">Fast Delivery</h3>
+                    <p class="feature-description">Quick and reliable delivery within 30 minutes. Real-time tracking available.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🍽️</div>
+                    <h3 class="feature-title">Fresh Food</h3>
+                    <p class="feature-description">Hot and fresh meals delivered directly from restaurant kitchens to your door.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">💳</div>
+                    <h3 class="feature-title">Easy Payment</h3>
+                    <p class="feature-description">Multiple payment options including cash, cards, UPI, and digital wallets.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">⭐</div>
+                    <h3 class="feature-title">Top Rated</h3>
+                    <p class="feature-description">Curated selection of top-rated restaurants with excellent food quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offers Section -->
+    <section class="special-offers">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Special Offers</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9;">Save more with our exclusive deals and discounts</p>
+
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <h3 class="offer-title">🎉 First Order</h3>
+                    <p class="offer-description">Get 50% off on your first order. Valid for orders above ₹300.</p>
+                    <div class="offer-code">Code: FIRST50</div>
+                </div>
+
+                <div class="offer-card">
+                    <h3 class="offer-title">🍽️ Weekend Special</h3>
+                    <p class="offer-description">30% off on weekend orders. Available Saturday and Sunday only.</p>
+                    <div class="offer-code">Code: WEEKEND30</div>
+                </div>
+
+                <div class="offer-card">
+                    <h3 class="offer-title">👥 Group Order</h3>
+                    <p class="offer-description">₹200 off on orders above ₹1000. Perfect for office or family orders.</p>
+                    <div class="offer-code">Code: GROUP200</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section scroll-reveal from-left">
+                    <h3>Thanvish Travels</h3>
+                    <p>Your trusted partner for amazing travel experiences, comfortable cab rides, and delicious food delivery.</p>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="travel-packages.html">Travel Packages</a></li>
+                        <li><a href="cab-services.html">Cab Services</a></li>
+                        <li><a href="food-delivery.html">Food Delivery</a></li>
+                        <li><a href="all-services.html">All Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="icon-phone"></i> +91 80999 96622</p>
+                        <p><i class="icon-email"></i> info@thanvishtravels.com</p>
+                        <p><i class="icon-location"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                <div class="footer-section scroll-reveal from-right">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="icon-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom scroll-reveal scale-up">
+                <p>&copy; 2024 Thanvish Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMobileNavigation();
+            setupFoodFilters();
+        });
+
+        function setupFoodFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const restaurantCards = document.querySelectorAll('.restaurant-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    // Filter restaurants
+                    restaurantCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-cuisine') === filter) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeInUp 0.6s ease';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        function orderFood(restaurantName) {
+            alert(`Redirecting to ${restaurantName} menu. You can browse and order your favorite dishes!`);
+            // In a real app, this would redirect to restaurant menu page
+        }
+    </script>
+</body>
+</html>

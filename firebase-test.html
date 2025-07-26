@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        .success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .loading {
+            background: #cfe2ff;
+            border-color: #b6d4fe;
+            color: #084298;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Firebase Connection Test</h1>
+    
+    <div class="test-section">
+        <h2>Database Information</h2>
+        <p><strong>Firebase URL:</strong> <code>https://travaling-76f20-default-rtdb.firebaseio.com</code></p>
+        <p><strong>Project ID:</strong> <code>travaling-76f20</code></p>
+    </div>
+
+    <div class="test-section">
+        <h2>Connection Tests</h2>
+        <button onclick="testConnection()">Test Basic Connection</button>
+        <button onclick="testRead()">Test Read Operation</button>
+        <button onclick="testWrite()">Test Write Operation</button>
+        <button onclick="testDelete()">Test Delete Operation</button>
+        <div id="test-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Required Firebase Setup</h2>
+        <ol>
+            <li>Go to <a href="https://console.firebase.google.com" target="_blank">Firebase Console</a></li>
+            <li>Find project: <code>travaling-76f20</code></li>
+            <li>Create <strong>Realtime Database</strong> (not Firestore)</li>
+            <li>Set database rules to:
+                <pre>{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}</pre>
+            </li>
+            <li>Make sure database is in a region near you</li>
+        </ol>
+    </div>
+
+    <script>
+        const FIREBASE_URL = 'https://travaling-76f20-default-rtdb.firebaseio.com';
+
+        function showResult(title, status, message, details = '') {
+            const resultsDiv = document.getElementById('test-results');
+            const resultClass = status === 'success' ? 'success' : status === 'error' ? 'error' : 'loading';
+            
+            resultsDiv.innerHTML += `
+                <div class="test-section ${resultClass}">
+                    <h3>${title}</h3>
+                    <p>${message}</p>
+                    ${details ? `<pre>${details}</pre>` : ''}
+                </div>
+            `;
+        }
+
+        async function testConnection() {
+            document.getElementById('test-results').innerHTML = '';
+            showResult('Basic Connection Test', 'loading', 'Testing connection to Firebase...');
+            
+            try {
+                const response = await fetch(`${FIREBASE_URL}/.json`);
+                
+                if (response.ok) {
+                    const data = await response.text();
+                    showResult('Basic Connection Test', 'success', 
+                        'Connection successful!', 
+                        `Status: ${response.status}\nResponse: ${data || 'null (empty database)'}`);
+                } else {
+                    showResult('Basic Connection Test', 'error', 
+                        `Connection failed with status ${response.status}`, 
+                        await response.text());
+                }
+            } catch (error) {
+                showResult('Basic Connection Test', 'error', 
+                    'Connection failed', 
+                    error.message);
+            }
+        }
+
+        async function testRead() {
+            showResult('Read Test', 'loading', 'Testing read operation...');
+            
+            try {
+                const response = await fetch(`${FIREBASE_URL}/test.json`);
+                
+                if (response.ok || response.status === 404) {
+                    showResult('Read Test', 'success', 
+                        'Read operation successful!', 
+                        `Status: ${response.status} (404 is normal for empty data)`);
+                } else {
+                    showResult('Read Test', 'error', 
+                        `Read failed with status ${response.status}`, 
+                        await response.text());
+                }
+            } catch (error) {
+                showResult('Read Test', 'error', 
+                    'Read operation failed', 
+                    error.message);
+            }
+        }
+
+        async function testWrite() {
+            showResult('Write Test', 'loading', 'Testing write operation...');
+            
+            try {
+                const testData = {
+                    timestamp: new Date().toISOString(),
+                    test: 'Firebase connection test'
+                };
+
+                const response = await fetch(`${FIREBASE_URL}/test.json`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                if (response.ok) {
+                    showResult('Write Test', 'success', 
+                        'Write operation successful!', 
+                        `Status: ${response.status}\nData written: ${JSON.stringify(testData, null, 2)}`);
+                } else {
+                    showResult('Write Test', 'error', 
+                        `Write failed with status ${response.status}`, 
+                        await response.text());
+                }
+            } catch (error) {
+                showResult('Write Test', 'error', 
+                    'Write operation failed', 
+                    error.message);
+            }
+        }
+
+        async function testDelete() {
+            showResult('Delete Test', 'loading', 'Testing delete operation...');
+            
+            try {
+                const response = await fetch(`${FIREBASE_URL}/test.json`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    showResult('Delete Test', 'success', 
+                        'Delete operation successful!', 
+                        `Status: ${response.status}`);
+                } else {
+                    showResult('Delete Test', 'error', 
+                        `Delete failed with status ${response.status}`, 
+                        await response.text());
+                }
+            } catch (error) {
+                showResult('Delete Test', 'error', 
+                    'Delete operation failed', 
+                    error.message);
+            }
+        }
+
+        // Auto-run basic connection test on page load
+        window.onload = () => testConnection();
+    </script>
+</body>
+</html>

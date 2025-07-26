@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Packages - Thanvish Travels</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page specific styles */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.9), rgba(155, 89, 182, 0.9)), 
+                        url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600') center/cover;
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .page-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .page-hero-content p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+        
+        .services-main {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+        
+        .filter-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            background: white;
+            color: #2c3e50;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+            transform: translateY(-2px);
+        }
+        
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .package-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .package-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .package-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .package-content {
+            padding: 2rem;
+        }
+        
+        .package-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .package-description {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .package-features li {
+            padding: 0.5rem 0;
+            color: #34495e;
+        }
+        
+        .package-features li::before {
+            content: "✓";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .package-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 2px solid #f8f9fa;
+        }
+        
+        .package-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+        
+        .package-price span {
+            font-size: 1rem;
+            color: #7f8c8d;
+            font-weight: normal;
+        }
+        
+        .book-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .book-btn:hover {
+            background: linear-gradient(135deg, #2980b9, #21618c);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation Elements -->
+    <div class="background-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <div class="geometric-shapes">
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+    </div>
+
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1 class="logo"><a href="index.html">Thanvish Travels</a></h1>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li class="nav-dropdown">
+                            <a href="#" class="nav-link active">Services <i class="dropdown-icon">▼</i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="travel-packages.html" class="dropdown-link">Travel Packages</a></li>
+                                <li><a href="cab-services.html" class="dropdown-link">Cab Services</a></li>
+                                <li><a href="food-delivery.html" class="dropdown-link">Food Delivery</a></li>
+                                <li><a href="all-services.html" class="dropdown-link">View All</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                    
+                    <div class="nav-buttons">
+                        <a href="#book-package" class="btn-primary">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="page-hero-content scroll-reveal from-bottom">
+            <h1>Travel Packages</h1>
+            <p>Discover amazing destinations with our carefully curated travel packages. From exotic beaches to mountain adventures, we have the perfect trip for you.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="services-main">
+        <div class="container">
+            <div class="filter-section">
+                <h2 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;">Choose Your Adventure</h2>
+                <p style="color: #7f8c8d; font-size: 1.2rem;">Filter packages by destination type or budget</p>
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Packages</button>
+                    <button class="filter-btn" data-filter="domestic">Domestic</button>
+                    <button class="filter-btn" data-filter="international">International</button>
+                    <button class="filter-btn" data-filter="adventure">Adventure</button>
+                    <button class="filter-btn" data-filter="luxury">Luxury</button>
+                    <button class="filter-btn" data-filter="budget">Budget</button>
+                </div>
+            </div>
+
+            <div class="packages-grid" id="packages-grid">
+                <!-- Domestic Packages -->
+                <div class="package-card" data-category="domestic adventure">
+                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1539650116574-75c0c6d0d867?w=500');">
+                        <div class="package-badge">Adventure</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">Goa Beach Paradise</h3>
+                        <p class="package-description">Experience the vibrant beaches, water sports, and nightlife of Goa with this 5-day adventure package.</p>
+                        <ul class="package-features">
+                            <li>5 Days / 4 Nights</li>
+                            <li>Beach Resort Accommodation</li>
+                            <li>Water Sports Activities</li>
+                            <li>Local Sightseeing</li>
+                            <li>All Meals Included</li>
+                        </ul>
+                        <div class="package-footer">
+                            <div class="package-price">₹25,999<span>/person</span></div>
+                            <button class="book-btn" onclick="bookPackage('Goa Beach Paradise')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="package-card" data-category="domestic luxury">
+                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500');">
+                        <div class="package-badge">Luxury</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">Kashmir Valley Deluxe</h3>
+                        <p class="package-description">Luxury stay in houseboats and premium hotels while exploring the breathtaking beauty of Kashmir.</p>
+                        <ul class="package-features">
+                            <li>7 Days / 6 Nights</li>
+                            <li>Houseboat & 5-Star Hotels</li>
+                            <li>Shikara Rides</li>
+                            <li>Gulmarg & Pahalgam Tours</li>
+                            <li>Premium Transportation</li>
+                        </ul>
+                        <div class="package-footer">
+                            <div class="package-price">₹55,999<span>/person</span></div>
+                            <button class="book-btn" onclick="bookPackage('Kashmir Valley Deluxe')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="package-card" data-category="domestic budget">
+                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500');">
+                        <div class="package-badge">Budget</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">Rajasthan Heritage Tour</h3>
+                        <p class="package-description">Explore the royal heritage of Rajasthan with visits to Jaipur, Udaipur, and Jodhpur on a budget.</p>
+                        <ul class="package-features">
+                            <li>6 Days / 5 Nights</li>
+                            <li>3-Star Hotel Stay</li>
+                            <li>Local Transport</li>
+                            <li>Palace & Fort Tours</li>
+                            <li>Cultural Experiences</li>
+                        </ul>
+                        <div class="package-footer">
+                            <div class="package-price">₹18,999<span>/person</span></div>
+                            <button class="book-btn" onclick="bookPackage('Rajasthan Heritage Tour')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- International Packages -->
+                <div class="package-card" data-category="international luxury">
+                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500');">
+                        <div class="package-badge">International</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">Dubai Extravaganza</h3>
+                        <p class="package-description">Experience the luxury and glamour of Dubai with shopping, desert safaris, and world-class attractions.</p>
+                        <ul class="package-features">
+                            <li>5 Days / 4 Nights</li>
+                            <li>4-Star Hotel Stay</li>
+                            <li>Desert Safari</li>
+                            <li>City Tour & Shopping</li>
+                            <li>Burj Khalifa Visit</li>
+                        </ul>
+                        <div class="package-footer">
+                            <div class="package-price">₹75,999<span>/person</span></div>
+                            <button class="book-btn" onclick="bookPackage('Dubai Extravaganza')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="package-card" data-category="international adventure">
+                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=500');">
+                        <div class="package-badge">Adventure</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">Thailand Explorer</h3>
+                        <p class="package-description">Discover the beaches of Phuket, temples of Bangkok, and adventure activities in this Thailand tour.</p>
+                        <ul class="package-features">
+                            <li>7 Days / 6 Nights</li>
+                            <li>Beach & City Hotels</li>
+                            <li>Island Hopping</li>
+                            <li>Temple Tours</li>
+                            <li>Traditional Thai Massage</li>
+                        </ul>
+                        <div class="package-footer">
+                            <div class="package-price">₹65,999<span>/person</span></div>
+                            <button class="book-btn" onclick="bookPackage('Thailand Explorer')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="package-card" data-category="international luxury">
+                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1549144511-f099e773c147?w=500');">
+                        <div class="package-badge">Luxury</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">Europe Grand Tour</h3>
+                        <p class="package-description">Visit Paris, Rome, and Amsterdam in this luxury European tour with premium accommodations.</p>
+                        <ul class="package-features">
+                            <li>10 Days / 9 Nights</li>
+                            <li>5-Star Hotel Chain</li>
+                            <li>High-Speed Train Travel</li>
+                            <li>Guided City Tours</li>
+                            <li>Premium Dining</li>
+                        </ul>
+                        <div class="package-footer">
+                            <div class="package-price">₹1,45,999<span>/person</span></div>
+                            <button class="book-btn" onclick="bookPackage('Europe Grand Tour')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section scroll-reveal from-left">
+                    <h3>Thanvish Travels</h3>
+                    <p>Your trusted partner for amazing travel experiences, comfortable cab rides, and delicious food delivery.</p>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="travel-packages.html">Travel Packages</a></li>
+                        <li><a href="cab-services.html">Cab Services</a></li>
+                        <li><a href="food-delivery.html">Food Delivery</a></li>
+                        <li><a href="all-services.html">All Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="icon-phone"></i> +91 80999 96622</p>
+                        <p><i class="icon-email"></i> info@thanvishtravels.com</p>
+                        <p><i class="icon-location"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                <div class="footer-section scroll-reveal from-right">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="icon-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom scroll-reveal scale-up">
+                <p>&copy; 2024 Thanvish Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMobileNavigation();
+            setupPackageFilters();
+        });
+
+        function setupPackageFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const packageCards = document.querySelectorAll('.package-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    // Filter packages
+                    packageCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeInUp 0.6s ease';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        function bookPackage(packageName) {
+            // Redirect to main page with package info
+            window.location.href = `index.html?package=${encodeURIComponent(packageName)}`;
+        }
+    </script>
+</body>
+</html>

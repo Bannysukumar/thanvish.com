@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Thanvish Travels</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1 class="logo"><a href="index.html">Thanvish Travels</a></h1>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li class="nav-dropdown">
+                            <a href="index.html#services" class="nav-link">Services <i class="dropdown-icon">▼</i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="travel-packages.html" class="dropdown-link">Travel Packages</a></li>
+                                <li><a href="cab-services.html" class="dropdown-link">Cab Services</a></li>
+                                <li><a href="food-delivery.html" class="dropdown-link">Food Delivery</a></li>
+                                <li><a href="all-services.html" class="dropdown-link">View All</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                    
+                    <div class="nav-buttons">
+                        <a href="index.html" class="btn-primary">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Admin Login</h1>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autofocus>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <div id="error-message" class="error-message"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            
+            // Simple client-side authentication (for demo purposes)
+            if (password === 'admin123') {
+                localStorage.setItem('adminPassword', password);
+                window.location.href = 'dashboard.html';
+            } else {
+                document.getElementById('error-message').textContent = 'Invalid password. Use: admin123';
+            }
+        });
+    </script>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section scroll-reveal from-left">
+                    <h3>Thanvish Travels</h3>
+                    <p>Your trusted partner for amazing travel experiences, comfortable cab rides, and delicious food delivery.</p>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" data-filter="all">All Packages</a></li>
+                        <li><a href="#" data-filter="trip">Travel Packages</a></li>
+                        <li><a href="#" data-filter="cab">Cab Services</a></li>
+                        <li><a href="#" data-filter="food">Food Delivery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="icon-phone"></i> +91 80999 96622</p>
+                        <p><i class="icon-email"></i> info@thanvishtravels.com</p>
+                        <p><i class="icon-location"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                <div class="footer-section scroll-reveal from-right">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="icon-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom scroll-reveal scale-up">
+                <p>&copy; 2024 Thanvish Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

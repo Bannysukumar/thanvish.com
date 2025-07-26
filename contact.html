@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Thanvish Travels</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page Layout Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Contact Hero Section */
+        .contact-hero {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.9), rgba(155, 89, 182, 0.9)), 
+                        url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600') center/cover;
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .contact-hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .contact-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .contact-hero-content p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Main Sections Styling */
+        .contact-main {
+            padding: 5rem 0;
+            background: #f8f9fa;
+            position: relative;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .contact-info-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .contact-info-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+        
+        .contact-info-section h2 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .contact-info-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+            border-radius: 2px;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .contact-method:hover {
+            background: #fff;
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .contact-method-icon {
+            font-size: 2.5rem;
+            min-width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+            border-radius: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .contact-method-details h3 {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .contact-method-details p {
+            color: #34495e;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+        
+        .contact-method-details span {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .contact-form-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .contact-form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+        
+        .contact-form-section h2 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .contact-form-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            background: #f8f9fa;
+            color: #2c3e50;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #95a5a6;
+        }
+        
+        .form-group select {
+            cursor: pointer;
+        }
+        
+        .form-group select option {
+            padding: 0.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #2980b9, #21618c);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.4);
+        }
+        
+        .business-hours {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 3rem;
+        }
+        
+        .business-hours h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .hours-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .hours-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .hours-card h3 {
+            color: #3498db;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hours-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .location-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .location-section h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .location-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .directions-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .directions-btn:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+        
+        /* Why Contact Us Section */
+        .why-contact-section {
+            padding: 5rem 0;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .why-contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #3498db, #9b59b6, #e74c3c, #f39c12);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .section-header p {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            color: #444;
+            line-height: 1.6;
+        }
+        
+        /* Ensure all sections are visible */
+        section {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Ensure background elements stay in background */
+        .background-particles,
+        .geometric-shapes {
+            z-index: -1 !important;
+        }
+        
+        /* Make sure navbar is on top */
+        .navbar {
+            z-index: 1000 !important;
+        }
+        
+        /* Section Intro Styling */
+        .section-intro {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .contact-info-section .section-intro {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-contact {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .social-contact h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .social-btn {
+            padding: 0.5rem 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .social-btn.facebook:hover { background: #1877f2; }
+        .social-btn.instagram:hover { background: #E4405F; }
+        .social-btn.twitter:hover { background: #1DA1F2; }
+        .social-btn.linkedin:hover { background: #0A66C2; }
+        
+        /* Business Hours Section */
+        .business-hours {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+        
+        .business-hours h2 {
+            color: white;
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .business-hours .section-intro {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .hours-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .hours-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .hours-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .hours-card h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hours-card p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+        
+        .hours-card strong {
+            color: white;
+        }
+        
+        .hours-card .highlight {
+            color: #ffd700;
+            font-weight: 700;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Container override for contact page */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Team Section */
+        .team-section {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+        
+        .team-section h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .team-section .section-intro {
+            color: #7f8c8d;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 5px solid #f8f9fa;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .team-member h3 {
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .team-member .position {
+            color: #3498db;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .team-member p:last-child {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Enhanced Location Section */
+        .location-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .location-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+        }
+        
+        .map-container {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+        
+        .office-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 2rem;
+            color: white;
+        }
+        
+        .map-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .map-overlay p {
+            margin-bottom: 1rem;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            position: relative;
+        }
+        
+        .faq-section h2 {
+            color: white;
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .faq-section .section-intro {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .faq-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .faq-item h3 {
+            color: #3498db;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .faq-item p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .contact-grid,
+            .team-grid,
+            .faq-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info-section,
+            .contact-form-section,
+            .business-hours,
+            .location-section,
+            .team-section,
+            .faq-section {
+                padding: 2rem;
+            }
+            
+            .contact-method {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-method-icon {
+                align-self: center;
+            }
+            
+            .location-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .office-image {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation Elements -->
+    <div class="background-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <div class="geometric-shapes">
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+    </div>
+    
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1 class="logo"><a href="index.html">Thanvish Travels</a></h1>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li class="nav-dropdown">
+                            <a href="#" class="nav-link">Services <i class="dropdown-icon">▼</i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="travel-packages.html" class="dropdown-link">Travel Packages</a></li>
+                                <li><a href="cab-services.html" class="dropdown-link">Cab Services</a></li>
+                                <li><a href="food-delivery.html" class="dropdown-link">Food Delivery</a></li>
+                                <li><a href="all-services.html" class="dropdown-link">View All</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                    </ul>
+                    
+                    <div class="nav-buttons">
+                        <a href="index.html#packages" class="btn-primary">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="contact-hero-content scroll-reveal from-bottom">
+            <h1>Get In Touch</h1>
+            <p>We're here to help you plan your perfect journey. Contact our travel experts for personalized assistance and recommendations.</p>
+        </div>
+    </section>
+    
+    <!-- Why Contact Us Section -->
+    <section class="why-contact-section">
+        <div class="container">
+            <div class="section-header scroll-reveal from-bottom">
+                <h2>Why Choose Thanvish Travels?</h2>
+                <p>Experience excellence in travel services with our dedicated team</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card scroll-reveal from-left">
+                    <img src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=400" alt="24/7 Support">
+                    <h3>24/7 Customer Support</h3>
+                    <p>Round-the-clock assistance for all your travel needs. Our dedicated team is always ready to help you.</p>
+                </div>
+                
+                <div class="feature-card scroll-reveal">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400" alt="Expert Team">
+                    <h3>Expert Travel Consultants</h3>
+                    <p>15+ years of experience in crafting perfect travel experiences. Get personalized recommendations from our experts.</p>
+                </div>
+                
+                <div class="feature-card scroll-reveal from-right">
+                    <img src="https://images.unsplash.com/photo-1553028826-f4804a6dba3b?w=400" alt="Best Deals">
+                    <h3>Best Price Guarantee</h3>
+                    <p>Competitive prices with no hidden charges. We ensure you get the best value for your money.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Contact Content -->
+    <section class="contact-main">
+        <div class="container">
+            <!-- Contact Information and Form -->
+            <div class="contact-grid">
+                <!-- Contact Information -->
+                <div class="contact-info-section scroll-reveal from-left">
+                    <h2>Multiple Ways to Reach Us</h2>
+                    <p class="section-intro">Choose the most convenient way to connect with our travel experts</p>
+                    
+                    <div class="contact-method">
+                        <div class="contact-method-icon">📞</div>
+                        <div class="contact-method-details">
+                            <h3>Call Our Hotline</h3>
+                            <p><strong>+91 80999 96622</strong></p>
+                            <p>Toll-Free: 1800-123-TRAVEL</p>
+                            <span>Available 24/7 for emergencies • Regular hours: 6 AM - 11 PM IST</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-method-icon">✉️</div>
+                        <div class="contact-method-details">
+                            <h3>Email Support</h3>
+                            <p><strong>info@thanvishtravels.com</strong></p>
+                            <p>bookings@thanvishtravels.com</p>
+                            <span>Response time: Within 2-4 hours during business hours</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-method-icon">📍</div>
+                        <div class="contact-method-details">
+                            <h3>Visit Our Head Office</h3>
+                            <p><strong>Thanvish Travels Headquarters</strong></p>
+                            <p>123 Travel Plaza, Lokhandwala Complex</p>
+                            <p>Andheri West, Mumbai - 400058</p>
+                            <p>Maharashtra, India</p>
+                            <span>Free parking available • Near Andheri Metro Station</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-method-icon">💬</div>
+                        <div class="contact-method-details">
+                            <h3>Instant Messaging</h3>
+                            <p><strong>WhatsApp Business</strong></p>
+                            <p>+91 80999 96622</p>
+                            <span>Quick replies • Share documents • Voice messages welcome</span>
+                        </div>
+                    </div>
+                    
+                    <div class="social-contact">
+                        <h3>Connect on Social Media</h3>
+                        <div class="social-buttons">
+                            <a href="#" class="social-btn facebook">Facebook</a>
+                            <a href="#" class="social-btn instagram">Instagram</a>
+                            <a href="#" class="social-btn twitter">Twitter</a>
+                            <a href="#" class="social-btn linkedin">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-section scroll-reveal from-right">
+                    <h2>Send Us a Message</h2>
+                    <form id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" maxlength="10" placeholder="Enter 10-digit mobile number" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="booking">Booking Assistance</option>
+                                <option value="travel">Travel Packages</option>
+                                <option value="cab">Cab Services</option>
+                                <option value="food">Food Delivery</option>
+                                <option value="complaint">Complaint</option>
+                                <option value="feedback">Feedback</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="6" placeholder="Tell us how we can help you..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Business Hours -->
+            <div class="business-hours scroll-reveal from-bottom">
+                <h2>When We're Available</h2>
+                <p class="section-intro">We're here to serve you at your convenience</p>
+                <div class="hours-grid">
+                    <div class="hours-card">
+                        <div class="hours-icon">🌟</div>
+                        <h3>24/7 Emergency Support</h3>
+                        <p><strong>Round the Clock</strong></p>
+                        <p>For urgent travel assistance</p>
+                        <p>Immediate response guaranteed</p>
+                        <p class="highlight">Call: +91 80999 96622</p>
+                    </div>
+                    
+                    <div class="hours-card">
+                        <div class="hours-icon">🏢</div>
+                        <h3>Office Walk-ins</h3>
+                        <p><strong>Monday - Friday</strong></p>
+                        <p>9:00 AM - 8:00 PM IST</p>
+                        <p><strong>Saturday</strong></p>
+                        <p>10:00 AM - 6:00 PM IST</p>
+                        <p><strong>Sunday & Holidays</strong></p>
+                        <p>11:00 AM - 4:00 PM IST</p>
+                    </div>
+                    
+                    <div class="hours-card">
+                        <div class="hours-icon">💻</div>
+                        <h3>Online Services</h3>
+                        <p><strong>Website Booking</strong></p>
+                        <p>Available 24/7</p>
+                        <p><strong>Live Chat Support</strong></p>
+                        <p>6:00 AM - 11:00 PM IST</p>
+                        <p><strong>Email Response</strong></p>
+                        <p>Within 2-4 hours</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Location Section -->
+            <div class="location-section scroll-reveal from-bottom">
+                <h2>Find Us Easily</h2>
+                <p class="section-intro">Conveniently located in the heart of Mumbai with easy access from all major areas</p>
+                
+                <div class="location-features">
+                    <div class="location-feature">
+                        <span class="feature-icon">🚇</span>
+                        <p>5 min walk from Andheri Metro Station</p>
+                    </div>
+                    <div class="location-feature">
+                        <span class="feature-icon">🚗</span>
+                        <p>Free parking available for customers</p>
+                    </div>
+                    <div class="location-feature">
+                        <span class="feature-icon">🚌</span>
+                        <p>Multiple bus routes nearby</p>
+                    </div>
+                    <div class="location-feature">
+                        <span class="feature-icon">☕</span>
+                        <p>Refreshment lounge for visitors</p>
+                    </div>
+                </div>
+                
+                <div class="map-container">
+                    <img src="https://images.unsplash.com/photo-1524634126442-357e0eac3c14?w=800" alt="Mumbai Office Location" class="office-image">
+                    <div class="map-overlay">
+                        <h3>Thanvish Travels Head Office</h3>
+                        <p>123 Travel Plaza, Lokhandwala Complex<br>
+                        Andheri West, Mumbai - 400058</p>
+                        <a href="https://maps.google.com/?q=Andheri+West+Mumbai" target="_blank" class="directions-btn">
+                            Get Directions
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <div class="faq-section scroll-reveal from-bottom">
+                <h2>Frequently Asked Questions</h2>
+                <p class="section-intro">Quick answers to common queries</p>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>What are your payment options?</h3>
+                        <p>We accept all major credit/debit cards, UPI, net banking, and cash payments at our office. EMI options available on select packages.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>How quickly can I get a response?</h3>
+                        <p>Email responses within 2-4 hours during business hours. WhatsApp and phone support available instantly during operating hours.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>Do you offer customized packages?</h3>
+                        <p>Yes! All our packages can be customized according to your preferences, budget, and travel dates. Just let us know your requirements.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>What about cancellation policies?</h3>
+                        <p>Cancellation policies vary by package. Generally, free cancellation up to 7 days before travel. Check specific package terms for details.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>Do you provide travel insurance?</h3>
+                        <p>Yes, we offer comprehensive travel insurance options covering medical emergencies, trip cancellations, and baggage loss.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>Can I book for a large group?</h3>
+                        <p>Absolutely! We specialize in group bookings with special discounts for groups of 10 or more. Contact us for exclusive group rates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section scroll-reveal from-left">
+                    <h3>Thanvish Travels</h3>
+                    <p>Your trusted partner for amazing travel experiences, comfortable cab rides, and delicious food delivery.</p>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html#packages">All Packages</a></li>
+                        <li><a href="index.html#packages">Travel Packages</a></li>
+                        <li><a href="index.html#packages">Cab Services</a></li>
+                        <li><a href="index.html#packages">Food Delivery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="icon-phone"></i> +91 80999 96622</p>
+                        <p><i class="icon-email"></i> info@thanvishtravels.com</p>
+                        <p><i class="icon-location"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                <div class="footer-section scroll-reveal from-right">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="icon-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom scroll-reveal scale-up">
+                <p>&copy; 2024 Thanvish Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            
+            // Validate mobile number
+            const phoneNumber = formData.get('phone');
+            if (!/^\d{10}$/.test(phoneNumber)) {
+                alert('Please enter a valid 10-digit mobile number');
+                return;
+            }
+            const contactData = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                subject: formData.get('subject'),
+                message: formData.get('message'),
+                timestamp: new Date().toISOString(),
+                status: 'new'
+            };
+            
+            try {
+                // Store in Firebase (same structure as bookings)
+                const response = await fetch('https://travaling-76f20-default-rtdb.firebaseio.com/contacts.json', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(contactData)
+                });
+                
+                if (response.ok) {
+                    // Show success message
+                    alert('Thank you for your message! We will get back to you within 2 hours.');
+                    e.target.reset();
+                } else {
+                    throw new Error('Failed to send message');
+                }
+            } catch (error) {
+                console.error('Error sending contact form:', error);
+                alert('Sorry, there was an error sending your message. Please try calling us directly at +91 80999 96622');
+            }
+        });
+        
+        // Setup mobile navigation for this page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize animations and navigation
+            if (typeof setupMobileNavigation !== 'undefined') {
+                setupMobileNavigation();
+            }
+            if (typeof setupScrollAnimations !== 'undefined') {
+                setupScrollAnimations();
+            }
+            
+            // Force visibility of all content
+            document.querySelectorAll('.scroll-reveal').forEach(element => {
+                element.style.opacity = '1';
+                element.style.transform = 'none';
+                element.style.visibility = 'visible';
+            });
+            
+            // Phone number validation for contact form
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                // Only allow numbers
+                phoneInput.addEventListener('input', (e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                    
+                    // Show validation feedback
+                    const isValid = e.target.value.length === 10;
+                    e.target.style.borderColor = e.target.value.length === 0 ? '#e9ecef' : 
+                                               isValid ? '#28a745' : '#dc3545';
+                });
+                
+                // Prevent non-numeric input
+                phoneInput.addEventListener('keypress', (e) => {
+                    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'Tab', 'Escape', 'Enter'].includes(e.key)) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

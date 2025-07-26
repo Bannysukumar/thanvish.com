@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Services - Thanvish Travels</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page specific styles */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(52, 73, 94, 0.9), rgba(44, 62, 80, 0.9)), 
+                        url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1600') center/cover;
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .page-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .page-hero-content p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+        
+        .services-overview {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .service-category {
+            background: white;
+            border-radius: 25px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--category-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-category:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-category:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            color: white;
+            background: var(--category-color);
+        }
+        
+        .service-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .service-description {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .service-features li {
+            padding: 0.8rem 0;
+            color: #34495e;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        .service-features li::before {
+            content: "✓";
+            color: var(--category-color);
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .service-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--category-color);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 0.3rem;
+        }
+        
+        .service-btn {
+            background: var(--category-color);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.1rem;
+        }
+        
+        .service-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            filter: brightness(1.1);
+        }
+        
+        /* Color themes for each service */
+        .travel-category {
+            --category-color: linear-gradient(135deg, #3498db, #2980b9);
+        }
+        
+        .cab-category {
+            --category-color: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+        
+        .food-category {
+            --category-color: linear-gradient(135deg, #e67e22, #d35400);
+        }
+        
+        .travel-category .service-icon {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+        
+        .cab-category .service-icon {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+        
+        .food-category .service-icon {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+        
+        .travel-category .service-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+        
+        .cab-category .service-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+        
+        .food-category .service-btn {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+        
+        .travel-category::before {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+        
+        .cab-category::before {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+        
+        .food-category::before {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+        
+        .travel-category .service-features li::before {
+            color: #3498db;
+        }
+        
+        .cab-category .service-features li::before {
+            color: #27ae60;
+        }
+        
+        .food-category .service-features li::before {
+            color: #e67e22;
+        }
+        
+        .travel-category .stat-number {
+            color: #3498db;
+        }
+        
+        .cab-category .stat-number {
+            color: #27ae60;
+        }
+        
+        .food-category .stat-number {
+            color: #e67e22;
+        }
+        
+        .company-stats {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .company-stat {
+            padding: 2rem;
+        }
+        
+        .company-stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 0.5rem;
+        }
+        
+        .company-stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .testimonials-section {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .testimonial-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 20px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: #34495e;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .testimonial-service {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .service-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation Elements -->
+    <div class="background-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <div class="geometric-shapes">
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+    </div>
+
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1 class="logo"><a href="index.html">Thanvish Travels</a></h1>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li class="nav-dropdown">
+                            <a href="#" class="nav-link active">Services <i class="dropdown-icon">▼</i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="travel-packages.html" class="dropdown-link">Travel Packages</a></li>
+                                <li><a href="cab-services.html" class="dropdown-link">Cab Services</a></li>
+                                <li><a href="food-delivery.html" class="dropdown-link">Food Delivery</a></li>
+                                <li><a href="all-services.html" class="dropdown-link">View All</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                    
+                    <div class="nav-buttons">
+                        <a href="#services" class="btn-primary">Explore Services</a>
+                    </div>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="page-hero-content scroll-reveal from-bottom">
+            <h1>All Our Services</h1>
+            <p>Discover the complete range of services offered by Thanvish Travels. From travel packages to food delivery, we've got everything you need for comfort and convenience.</p>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="services-overview" id="services">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: #2c3e50; font-size: 2.8rem; margin-bottom: 1rem;">Complete Service Portfolio</h2>
+                <p style="color: #7f8c8d; font-size: 1.2rem; max-width: 700px; margin: 0 auto;">Everything you need for travel, transportation, and dining - all in one place</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Travel Packages -->
+                <div class="service-category travel-category">
+                    <div class="service-icon">✈️</div>
+                    <h3 class="service-title">Travel Packages</h3>
+                    <p class="service-description">Curated travel experiences to domestic and international destinations with complete planning and support.</p>
+                    
+                    <ul class="service-features">
+                        <li>Domestic & International Packages</li>
+                        <li>Customizable Itineraries</li>
+                        <li>Luxury & Budget Options</li>
+                        <li>Adventure & Cultural Tours</li>
+                        <li>24/7 Travel Support</li>
+                    </ul>
+                    
+                    <div class="service-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">150+</div>
+                            <div class="stat-label">Destinations</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5000+</div>
+                            <div class="stat-label">Happy Travelers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.8⭐</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                    </div>
+                    
+                    <a href="travel-packages.html" class="service-btn">Explore Packages</a>
+                </div>
+
+                <!-- Cab Services -->
+                <div class="service-category cab-category">
+                    <div class="service-icon">🚗</div>
+                    <h3 class="service-title">Cab Services</h3>
+                    <p class="service-description">Reliable transportation solutions for all your travel needs with professional drivers and well-maintained vehicles.</p>
+                    
+                    <ul class="service-features">
+                        <li>Economy to Luxury Vehicles</li>
+                        <li>24/7 Availability</li>
+                        <li>Professional Drivers</li>
+                        <li>GPS Tracking</li>
+                        <li>Fair & Transparent Pricing</li>
+                    </ul>
+                    
+                    <div class="service-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">200+</div>
+                            <div class="stat-label">Vehicles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">10K+</div>
+                            <div class="stat-label">Rides Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.7⭐</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                    </div>
+                    
+                    <a href="cab-services.html" class="service-btn">Book a Cab</a>
+                </div>
+
+                <!-- Food Delivery -->
+                <div class="service-category food-category">
+                    <div class="service-icon">🍽️</div>
+                    <h3 class="service-title">Food Delivery</h3>
+                    <p class="service-description">Delicious meals from top-rated restaurants delivered fresh and hot to your doorstep with quick service.</p>
+                    
+                    <ul class="service-features">
+                        <li>Multiple Cuisine Options</li>
+                        <li>Top-Rated Restaurants</li>
+                        <li>Fast 30-min Delivery</li>
+                        <li>Special Offers & Discounts</li>
+                        <li>Real-time Order Tracking</li>
+                    </ul>
+                    
+                    <div class="service-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Restaurants</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15K+</div>
+                            <div class="stat-label">Orders Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.6⭐</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                    </div>
+                    
+                    <a href="food-delivery.html" class="service-btn">Order Food</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Stats -->
+    <section class="company-stats">
+        <div class="container">
+            <h2 style="font-size: 2.8rem; margin-bottom: 1rem;">Trusted by Thousands</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9;">Our commitment to excellence reflected in numbers</p>
+            
+            <div class="stats-grid">
+                <div class="company-stat">
+                    <div class="company-stat-number">25K+</div>
+                    <div class="company-stat-label">Happy Customers</div>
+                </div>
+                <div class="company-stat">
+                    <div class="company-stat-number">50+</div>
+                    <div class="company-stat-label">Cities Covered</div>
+                </div>
+                <div class="company-stat">
+                    <div class="company-stat-number">5</div>
+                    <div class="company-stat-label">Years of Excellence</div>
+                </div>
+                <div class="company-stat">
+                    <div class="company-stat-number">24/7</div>
+                    <div class="company-stat-label">Customer Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;">What Our Customers Say</h2>
+                <p style="color: #7f8c8d; font-size: 1.2rem;">Real experiences from real customers across all our services</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Excellent travel package to Kashmir! Everything was perfectly organized and the customer service was outstanding throughout the trip."</p>
+                    <div class="testimonial-author">Priya Sharma</div>
+                    <div class="testimonial-service">Travel Packages</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Very reliable cab service. The driver was professional and the car was clean and comfortable. Definitely recommending to others!"</p>
+                    <div class="testimonial-author">Rajesh Kumar</div>
+                    <div class="testimonial-service">Cab Services</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Fast food delivery with hot and fresh meals. Great variety of restaurants and the ordering process is super simple."</p>
+                    <div class="testimonial-author">Anita Desai</div>
+                    <div class="testimonial-service">Food Delivery</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Used all three services and each one exceeded my expectations. Thanvish Travels is now my go-to for everything!"</p>
+                    <div class="testimonial-author">Amit Patel</div>
+                    <div class="testimonial-service">All Services</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section scroll-reveal from-left">
+                    <h3>Thanvish Travels</h3>
+                    <p>Your trusted partner for amazing travel experiences, comfortable cab rides, and delicious food delivery.</p>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="travel-packages.html">Travel Packages</a></li>
+                        <li><a href="cab-services.html">Cab Services</a></li>
+                        <li><a href="food-delivery.html">Food Delivery</a></li>
+                        <li><a href="all-services.html">All Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="icon-phone"></i> +91 80999 96622</p>
+                        <p><i class="icon-email"></i> info@thanvishtravels.com</p>
+                        <p><i class="icon-location"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                <div class="footer-section scroll-reveal from-right">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="icon-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom scroll-reveal scale-up">
+                <p>&copy; 2024 Thanvish Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMobileNavigation();
+        });
+    </script>
+</body>
+</html>

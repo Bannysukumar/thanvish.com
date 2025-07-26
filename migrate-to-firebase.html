@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migrate Data to Firebase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .progress {
+            background-color: #cfe2ff;
+            color: #084298;
+            border: 1px solid #b6d4fe;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .data-preview {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Migrate Travel Agency Data to Firebase</h1>
+    
+    <div class="container">
+        <h2>Firebase Configuration</h2>
+        <p>Database URL: <code>https://travaling-76f20.firebaseio.com</code></p>
+        <p>Status: <span id="firebase-status">Not connected</span></p>
+    </div>
+
+    <div class="container">
+        <h2>Load Local Data</h2>
+        <button onclick="loadPackages()">Load Packages Data</button>
+        <button onclick="loadBookings()">Load Bookings Data</button>
+        <button onclick="loadAllData()">Load All Data</button>
+        
+        <div id="local-data-status"></div>
+        <div id="data-preview" class="data-preview" style="display:none;"></div>
+    </div>
+
+    <div class="container">
+        <h2>Migration Actions</h2>
+        <button onclick="migratePackages()">Migrate Packages to Firebase</button>
+        <button onclick="migrateBookings()">Migrate Bookings to Firebase</button>
+        <button onclick="migrateAll()">Migrate All Data</button>
+        <button onclick="clearFirebase()">Clear Firebase Data (Caution!)</button>
+        
+        <div id="migration-status"></div>
+    </div>
+
+    <div class="container">
+        <h2>Verify Firebase Data</h2>
+        <button onclick="fetchFirebasePackages()">View Firebase Packages</button>
+        <button onclick="fetchFirebaseBookings()">View Firebase Bookings</button>
+        
+        <div id="firebase-data" class="data-preview" style="display:none;"></div>
+    </div>
+
+    <script>
+        const FIREBASE_URL = 'https://travaling-76f20-default-rtdb.firebaseio.com';
+        let localPackages = null;
+        let localBookings = null;
+
+        // Show status messages
+        function showStatus(elementId, message, type = 'success') {
+            const statusDiv = document.getElementById(elementId);
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = message;
+        }
+
+        // No sample data - just empty arrays
+        let localPackages = [];
+        let localBookings = [];
+
+        // Load packages (empty by default)
+        async function loadPackages() {
+            try {
+                localPackages = [];
+                showStatus('local-data-status', 'No local packages to load. Use admin dashboard to add packages.', 'success');
+                displayData('data-preview', [], 'No Local Packages');
+            } catch (error) {
+                showStatus('local-data-status', `Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Load bookings (empty by default)
+        async function loadBookings() {
+            try {
+                localBookings = [];
+                showStatus('local-data-status', 'No local bookings to load. Bookings are saved directly to Firebase.', 'success');
+                displayData('data-preview', [], 'No Local Bookings');
+            } catch (error) {
+                showStatus('local-data-status', `Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Load all data
+        async function loadAllData() {
+            await loadPackages();
+            await loadBookings();
+        }
+
+        // Display data preview
+        function displayData(elementId, data, title) {
+            const previewDiv = document.getElementById(elementId);
+            previewDiv.style.display = 'block';
+            previewDiv.innerHTML = `<h3>${title}</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+
+        // Migrate packages to Firebase
+        async function migratePackages() {
+            if (!localPackages) {
+                showStatus('migration-status', 'Please load packages first!', 'error');
+                return;
+            }
+
+            showStatus('migration-status', 'Migrating packages...', 'progress');
+            
+            try {
+                // Clear existing packages
+                await fetch(`${FIREBASE_URL}/packages.json`, { method: 'DELETE' });
+                
+                // Upload packages
+                for (let i = 0; i < localPackages.length; i++) {
+                    const pkg = localPackages[i];
+                    pkg.migratedAt = new Date().toISOString();
+                    
+                    await fetch(`${FIREBASE_URL}/packages/${pkg.id}.json`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(pkg)
+                    });
+                }
+                
+                showStatus('migration-status', `Successfully migrated ${localPackages.length} packages to Firebase!`, 'success');
+            } catch (error) {
+                showStatus('migration-status', `Error migrating packages: ${error.message}`, 'error');
+            }
+        }
+
+        // Migrate bookings to Firebase
+        async function migrateBookings() {
+            if (!localBookings) {
+                showStatus('migration-status', 'Please load bookings first!', 'error');
+                return;
+            }
+
+            showStatus('migration-status', 'Migrating bookings...', 'progress');
+            
+            try {
+                // Clear existing bookings
+                await fetch(`${FIREBASE_URL}/bookings.json`, { method: 'DELETE' });
+                
+                // Upload bookings
+                for (let i = 0; i < localBookings.length; i++) {
+                    const booking = localBookings[i];
+                    booking.migratedAt = new Date().toISOString();
+                    
+                    await fetch(`${FIREBASE_URL}/bookings/${booking.id}.json`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(booking)
+                    });
+                }
+                
+                showStatus('migration-status', `Successfully migrated ${localBookings.length} bookings to Firebase!`, 'success');
+            } catch (error) {
+                showStatus('migration-status', `Error migrating bookings: ${error.message}`, 'error');
+            }
+        }
+
+        // Migrate all data
+        async function migrateAll() {
+            await loadAllData();
+            await migratePackages();
+            await migrateBookings();
+        }
+
+        // Clear Firebase data
+        async function clearFirebase() {
+            if (!confirm('Are you sure you want to clear all Firebase data? This cannot be undone!')) {
+                return;
+            }
+
+            try {
+                await fetch(`${FIREBASE_URL}/packages.json`, { method: 'DELETE' });
+                await fetch(`${FIREBASE_URL}/bookings.json`, { method: 'DELETE' });
+                showStatus('migration-status', 'Firebase data cleared successfully!', 'success');
+            } catch (error) {
+                showStatus('migration-status', `Error clearing Firebase: ${error.message}`, 'error');
+            }
+        }
+
+        // Fetch packages from Firebase
+        async function fetchFirebasePackages() {
+            try {
+                const response = await fetch(`${FIREBASE_URL}/packages.json`);
+                const data = await response.json();
+                
+                if (data) {
+                    const packages = Object.values(data);
+                    displayData('firebase-data', packages, `Firebase Packages (${packages.length})`);
+                } else {
+                    displayData('firebase-data', [], 'No packages in Firebase');
+                }
+            } catch (error) {
+                showStatus('migration-status', `Error fetching Firebase packages: ${error.message}`, 'error');
+            }
+        }
+
+        // Fetch bookings from Firebase
+        async function fetchFirebaseBookings() {
+            try {
+                const response = await fetch(`${FIREBASE_URL}/bookings.json`);
+                const data = await response.json();
+                
+                if (data) {
+                    const bookings = Object.values(data);
+                    displayData('firebase-data', bookings, `Firebase Bookings (${bookings.length})`);
+                } else {
+                    displayData('firebase-data', [], 'No bookings in Firebase');
+                }
+            } catch (error) {
+                showStatus('migration-status', `Error fetching Firebase bookings: ${error.message}`, 'error');
+            }
+        }
+
+        // Check Firebase connection on load
+        async function checkFirebaseConnection() {
+            try {
+                const response = await fetch(`${FIREBASE_URL}/.json`);
+                if (response.ok) {
+                    document.getElementById('firebase-status').textContent = 'Connected';
+                    document.getElementById('firebase-status').style.color = 'green';
+                }
+            } catch (error) {
+                document.getElementById('firebase-status').textContent = 'Connection failed';
+                document.getElementById('firebase-status').style.color = 'red';
+            }
+        }
+
+        // Check connection on page load
+        checkFirebaseConnection();
+    </script>
+</body>
+</html>

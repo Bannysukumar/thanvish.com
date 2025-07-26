@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cab Services - Thanvish Travels</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page specific styles */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.9), rgba(39, 174, 96, 0.9)), 
+                        url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1600') center/cover;
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .page-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .page-hero-content p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+        
+        .services-main {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+        
+        .cab-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .cab-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cab-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .cab-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .cab-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .cab-icon {
+            font-size: 4rem;
+            color: #27ae60;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cab-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .cab-description {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .cab-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .cab-features li {
+            padding: 0.5rem 0;
+            color: #34495e;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cab-features li::before {
+            content: "🚗";
+            margin-right: 0.5rem;
+        }
+        
+        .cab-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #27ae60;
+            margin-bottom: 1.5rem;
+        }
+        
+        .book-cab-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .book-cab-btn:hover {
+            background: linear-gradient(135deg, #2ecc71, #58d68d);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+        
+        .features-section {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .feature-description {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+        
+        .booking-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            text-align: center;
+        }
+        
+        .booking-form {
+            max-width: 600px;
+            margin: 3rem auto 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+        
+        .form-group input::placeholder {
+            color: #95a5a6;
+        }
+        
+        .submit-btn {
+            background: white;
+            color: #27ae60;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cab-types-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation Elements -->
+    <div class="background-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <div class="geometric-shapes">
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+        <div class="shape circle"></div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+    </div>
+
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1 class="logo"><a href="index.html">Thanvish Travels</a></h1>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li class="nav-dropdown">
+                            <a href="#" class="nav-link active">Services <i class="dropdown-icon">▼</i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="travel-packages.html" class="dropdown-link">Travel Packages</a></li>
+                                <li><a href="cab-services.html" class="dropdown-link">Cab Services</a></li>
+                                <li><a href="food-delivery.html" class="dropdown-link">Food Delivery</a></li>
+                                <li><a href="all-services.html" class="dropdown-link">View All</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                    
+                    <div class="nav-buttons">
+                        <a href="#book-cab" class="btn-primary">Book Cab</a>
+                    </div>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="page-hero-content scroll-reveal from-bottom">
+            <h1>Cab Services</h1>
+            <p>Reliable, comfortable, and affordable cab services for all your transportation needs. 24/7 availability with professional drivers.</p>
+        </div>
+    </section>
+
+    <!-- Cab Types Section -->
+    <section class="services-main">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;">Choose Your Ride</h2>
+                <p style="color: #7f8c8d; font-size: 1.2rem;">Select from our fleet of well-maintained vehicles</p>
+            </div>
+
+            <div class="cab-types-grid">
+                <div class="cab-card">
+                    <div class="cab-icon">🚗</div>
+                    <h3 class="cab-title">Economy</h3>
+                    <p class="cab-description">Budget-friendly rides for daily commuting and short trips within the city.</p>
+                    <ul class="cab-features">
+                        <li>AC Sedan Cars</li>
+                        <li>Professional Drivers</li>
+                        <li>4 Passengers</li>
+                        <li>Basic Amenities</li>
+                    </ul>
+                    <div class="cab-price">₹12/km</div>
+                    <button class="book-cab-btn" onclick="bookCab('Economy')">Book Economy</button>
+                </div>
+
+                <div class="cab-card">
+                    <div class="cab-icon">🚙</div>
+                    <h3 class="cab-title">Premium</h3>
+                    <p class="cab-description">Comfortable and spacious rides for business trips and family outings.</p>
+                    <ul class="cab-features">
+                        <li>Premium Sedan/SUV</li>
+                        <li>Experienced Drivers</li>
+                        <li>6 Passengers</li>
+                        <li>Luxury Amenities</li>
+                    </ul>
+                    <div class="cab-price">₹18/km</div>
+                    <button class="book-cab-btn" onclick="bookCab('Premium')">Book Premium</button>
+                </div>
+
+                <div class="cab-card">
+                    <div class="cab-icon">🚐</div>
+                    <h3 class="cab-title">Luxury</h3>
+                    <p class="cab-description">High-end vehicles for special occasions, corporate events, and VIP transportation.</p>
+                    <ul class="cab-features">
+                        <li>Luxury Cars</li>
+                        <li>Professional Chauffeurs</li>
+                        <li>4-7 Passengers</li>
+                        <li>Premium Services</li>
+                    </ul>
+                    <div class="cab-price">₹25/km</div>
+                    <button class="book-cab-btn" onclick="bookCab('Luxury')">Book Luxury</button>
+                </div>
+
+                <div class="cab-card">
+                    <div class="cab-icon">🚌</div>
+                    <h3 class="cab-title">Group Travel</h3>
+                    <p class="cab-description">Spacious vehicles for group trips, family vacations, and corporate travel.</p>
+                    <ul class="cab-features">
+                        <li>Tempo Traveller</li>
+                        <li>Skilled Drivers</li>
+                        <li>12-15 Passengers</li>
+                        <li>Extra Luggage Space</li>
+                    </ul>
+                    <div class="cab-price">₹35/km</div>
+                    <button class="book-cab-btn" onclick="bookCab('Group Travel')">Book Group</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;">Why Choose Our Cabs</h2>
+                <p style="color: #7f8c8d; font-size: 1.2rem;">Experience the difference with our premium cab services</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⏰</div>
+                    <h3 class="feature-title">24/7 Availability</h3>
+                    <p class="feature-description">Round-the-clock service for all your transportation needs, any time of day or night.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 class="feature-title">Safe & Secure</h3>
+                    <p class="feature-description">GPS tracking, verified drivers, and regular vehicle maintenance for your safety.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Fair Pricing</h3>
+                    <p class="feature-description">Transparent pricing with no hidden charges. Pay what you see upfront.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Easy Booking</h3>
+                    <p class="feature-description">Simple online booking system. Book instantly via website or phone call.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking-section" id="book-cab">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Book Your Cab Now</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9;">Fill in your details and we'll get you a cab within minutes</p>
+
+            <form class="booking-form" id="cab-booking-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Phone Number" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="Pickup Location" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Drop Location" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="datetime-local" required>
+                    </div>
+                    <div class="form-group">
+                        <select required>
+                            <option value="">Select Cab Type</option>
+                            <option value="economy">Economy (₹12/km)</option>
+                            <option value="premium">Premium (₹18/km)</option>
+                            <option value="luxury">Luxury (₹25/km)</option>
+                            <option value="group">Group Travel (₹35/km)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Book Cab Now</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section scroll-reveal from-left">
+                    <h3>Thanvish Travels</h3>
+                    <p>Your trusted partner for amazing travel experiences, comfortable cab rides, and delicious food delivery.</p>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="travel-packages.html">Travel Packages</a></li>
+                        <li><a href="cab-services.html">Cab Services</a></li>
+                        <li><a href="food-delivery.html">Food Delivery</a></li>
+                        <li><a href="all-services.html">All Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section scroll-reveal">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="icon-phone"></i> +91 80999 96622</p>
+                        <p><i class="icon-email"></i> info@thanvishtravels.com</p>
+                        <p><i class="icon-location"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                <div class="footer-section scroll-reveal from-right">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="icon-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom scroll-reveal scale-up">
+                <p>&copy; 2024 Thanvish Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMobileNavigation();
+            setupCabBooking();
+        });
+
+        function setupCabBooking() {
+            document.getElementById('cab-booking-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Cab booking request submitted! We will call you within 5 minutes to confirm.');
+                e.target.reset();
+            });
+        }
+
+        function bookCab(cabType) {
+            // Scroll to booking form and pre-select cab type
+            document.getElementById('book-cab').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                const select = document.querySelector('select');
+                select.value = cabType.toLowerCase().replace(' ', '');
+            }, 500);
+        }
+    </script>
+</body>
+</html>

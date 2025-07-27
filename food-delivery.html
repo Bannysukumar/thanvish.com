@@ -5,44 +5,234 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Delivery - Thanvish Travels</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Page specific styles */
+        /* Indian-Inspired Professional Design */
+        :root {
+            --primary-gold: #FFD700;
+            --secondary-gold: #FFA500;
+            --deep-red: #DC143C;
+            --saffron: #FF9933;
+            --navy-blue: #000080;
+            --forest-green: #228B22;
+            --rich-purple: #800080;
+            --warm-beige: #F5F5DC;
+            --cream: #FFFDD0;
+            --text-dark: #2C1810;
+            --text-light: #8B7355;
+            --gradient-gold: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00);
+            --gradient-royal: linear-gradient(135deg, #000080, #4169E1, #1E90FF);
+            --gradient-nature: linear-gradient(135deg, #228B22, #32CD32, #90EE90);
+            --shadow-elegant: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-gold: 0 5px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #FFF8DC, #F5F5DC, #FAF0E6);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Elements */
+        .mandala-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--primary-gold) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--saffron) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, var(--deep-red) 0%, transparent 50%);
+            animation: mandalaFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes mandalaFloat {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+        }
+
+        /* Professional Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid var(--primary-gold);
+            box-shadow: var(--shadow-elegant);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-brand .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-gold);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Hero Section */
         .page-hero {
-            background: linear-gradient(135deg, rgba(230, 126, 34, 0.9), rgba(211, 84, 0, 0.9)), 
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.8), rgba(220, 20, 60, 0.8)), 
                         url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600') center/cover;
-            height: 60vh;
-            min-height: 400px;
+            height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
             position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mandala" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,215,0,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23mandala)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
         }
         
         .page-hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
             font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease-out;
         }
         
         .page-hero-content p {
             font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto;
+            margin-bottom: 2rem;
             opacity: 0.95;
             line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
-        
-        .services-main {
-            padding: 5rem 0;
-            background: #f8f9fa;
+
+        @keyframes fadeInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
-        
-        .cuisine-filter {
+
+        /* Filter Section */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 3rem 0;
+            border-bottom: 2px solid var(--primary-gold);
+        }
+
+        .section-header {
             text-align: center;
             margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-gold);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .filter-buttons {
@@ -54,227 +244,283 @@
         }
         
         .filter-btn {
-            padding: 0.8rem 2rem;
+            padding: 12px 30px;
             background: white;
-            color: #2c3e50;
-            border: 2px solid #e9ecef;
-            border-radius: 25px;
+            color: var(--text-dark);
+            border: 2px solid var(--primary-gold);
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-gold);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .filter-btn:hover::before,
+        .filter-btn.active::before {
+            left: 0;
         }
         
         .filter-btn:hover,
         .filter-btn.active {
-            background: #e67e22;
             color: white;
-            border-color: #e67e22;
             transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
         }
         
+        /* Restaurants Grid */
         .restaurants-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
+            padding: 0 20px;
         }
         
         .restaurant-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-elegant);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .restaurant-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-gold);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .restaurant-card:hover::before {
+            transform: scaleX(1);
         }
         
         .restaurant-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         }
         
         .restaurant-image {
+            width: 100%;
             height: 200px;
             background-size: cover;
             background-position: center;
-            position: relative;
+            background-repeat: no-repeat;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .restaurant-card:hover .restaurant-image {
+            transform: scale(1.05);
         }
         
         .restaurant-badge {
             position: absolute;
             top: 1rem;
             left: 1rem;
-            background: linear-gradient(135deg, #e67e22, #d35400);
+            background: var(--gradient-gold);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            padding: 8px 16px;
+            border-radius: 25px;
             font-size: 0.9rem;
             font-weight: 600;
-        }
-        
-        .rating-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            box-shadow: var(--shadow-gold);
         }
         
         .restaurant-content {
             padding: 2rem;
         }
         
-        .restaurant-name {
-            font-size: 1.5rem;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-        
-        .restaurant-cuisine {
-            color: #e67e22;
-            font-weight: 600;
+        .restaurant-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-dark);
             margin-bottom: 1rem;
+            font-weight: 600;
         }
         
         .restaurant-description {
-            color: #7f8c8d;
+            color: var(--text-light);
             margin-bottom: 1.5rem;
             line-height: 1.6;
         }
         
-        .restaurant-info {
+        .restaurant-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .restaurant-features li {
+            padding: 0.5rem 0;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .restaurant-features li::before {
+            content: "🍽️";
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .restaurant-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 10px;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--warm-beige);
         }
-        
-        .delivery-time,
-        .min-order {
-            text-align: center;
+
+        .restaurant-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--deep-red);
+            font-family: 'Playfair Display', serif;
         }
-        
-        .delivery-time span,
-        .min-order span {
-            display: block;
-            font-size: 0.9rem;
-            color: #7f8c8d;
-        }
-        
-        .delivery-time strong,
-        .min-order strong {
-            color: #2c3e50;
-            font-size: 1.1rem;
+
+        .restaurant-price span {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: normal;
         }
         
         .order-btn {
-            background: linear-gradient(135deg, #e67e22, #d35400);
+            background: var(--gradient-gold);
             color: white;
-            padding: 1rem 2rem;
+            padding: 12px 30px;
             border: none;
-            border-radius: 25px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            width: 100%;
+            box-shadow: var(--shadow-gold);
         }
         
         .order-btn:hover {
-            background: linear-gradient(135deg, #d35400, #ba4a00);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
         }
-        
-        .features-section {
-            padding: 5rem 0;
-            background: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .feature-item {
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #e67e22, #d35400);
-            border-radius: 50%;
+
+        /* Loader and No Restaurants */
+        .loader-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            color: white;
-        }
-        
-        .feature-title {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        
-        .feature-description {
-            color: #7f8c8d;
-            line-height: 1.6;
-        }
-        
-        .special-offers {
-            padding: 5rem 0;
-            background: linear-gradient(135deg, #e67e22, #d35400);
-            color: white;
+            padding: 4rem;
             text-align: center;
         }
-        
-        .offers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .offer-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .offer-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-        
-        .offer-description {
+
+        .loader {
+            border: 4px solid var(--warm-beige);
+            border-top: 4px solid var(--primary-gold);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
             margin-bottom: 1.5rem;
-            opacity: 0.9;
         }
-        
-        .offer-code {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-container p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .no-restaurants {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-light);
+        }
+
+        .no-restaurants h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        /* Modal Styling */
+        .modal {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--primary-gold);
+        }
+
+        .modal-content h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            border: 2px solid var(--warm-beige);
             border-radius: 10px;
-            font-weight: 700;
-            letter-spacing: 1px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
-        
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        /* Success Message */
+        .success-message {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .success-content {
+            background: white;
+            border-radius: 20px;
+            border: 2px solid var(--primary-gold);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .success-content h3 {
+            color: var(--forest-green);
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .page-hero-content h1 {
                 font-size: 2.5rem;
@@ -282,38 +528,43 @@
             
             .restaurants-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
             
             .filter-buttons {
                 flex-direction: column;
                 align-items: center;
             }
+            
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Cultural Elements */
+        .cultural-pattern {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23FFD700" stroke-width="2"/><circle cx="50" cy="50" r="20" fill="none" stroke="%23FFD700" stroke-width="2"/></svg>');
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <!-- Background Animation Elements -->
-    <div class="background-particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
+    <!-- Mandala Background -->
+    <div class="mandala-bg"></div>
     
-    <div class="geometric-shapes">
-        <div class="shape circle"></div>
-        <div class="shape square"></div>
-        <div class="shape triangle"></div>
-        <div class="shape circle"></div>
-        <div class="shape square"></div>
-        <div class="shape triangle"></div>
-    </div>
+    <!-- Cultural Pattern Elements -->
+    <div class="cultural-pattern" style="top: 10%; left: 5%;"></div>
+    <div class="cultural-pattern" style="top: 20%; right: 10%;"></div>
+    <div class="cultural-pattern" style="bottom: 30%; left: 15%;"></div>
 
     <header>
         <nav class="navbar">
@@ -353,18 +604,19 @@
 
     <!-- Hero Section -->
     <section class="page-hero">
-        <div class="page-hero-content scroll-reveal from-bottom">
-            <h1>Food Delivery</h1>
-            <p>Delicious meals delivered fresh to your doorstep. From local favorites to international cuisine, satisfy your cravings with our premium food delivery service.</p>
+        <div class="page-hero-content">
+            <h1>Delicious Food Delivery</h1>
+            <p>Experience the authentic flavors of India delivered to your doorstep. From traditional Indian cuisine to international favorites, we bring the best restaurants to your home.</p>
         </div>
     </section>
 
-    <!-- Restaurants Section -->
-    <section class="services-main" id="order-food">
+    <!-- Filter Section -->
+    <section class="filter-section">
         <div class="container">
-            <div class="cuisine-filter">
-                <h2 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;">Order From Top Restaurants</h2>
-                <p style="color: #7f8c8d; font-size: 1.2rem;">Choose from a variety of cuisines and restaurants</p>
+            <div class="section-header">
+                <h2>Explore Restaurants</h2>
+                <p>Discover amazing restaurants and cuisines from across India</p>
+            </div>
                 
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">All Cuisines</button>
@@ -373,266 +625,212 @@
                     <button class="filter-btn" data-filter="italian">Italian</button>
                     <button class="filter-btn" data-filter="fast-food">Fast Food</button>
                     <button class="filter-btn" data-filter="desserts">Desserts</button>
-                </div>
-            </div>
-
-            <div class="restaurants-grid">
-                <!-- Indian Restaurants -->
-                <div class="restaurant-card" data-cuisine="indian">
-                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500');">
-                        <div class="restaurant-badge">Indian</div>
-                        <div class="rating-badge">⭐ 4.5</div>
-                    </div>
-                    <div class="restaurant-content">
-                        <h3 class="restaurant-name">Spice Garden</h3>
-                        <p class="restaurant-cuisine">North Indian • South Indian</p>
-                        <p class="restaurant-description">Authentic Indian cuisine with traditional spices and flavors. Known for biryani, curries, and tandoor dishes.</p>
-                        <div class="restaurant-info">
-                            <div class="delivery-time">
-                                <strong>30-40 min</strong>
-                                <span>Delivery Time</span>
-                            </div>
-                            <div class="min-order">
-                                <strong>₹200</strong>
-                                <span>Min Order</span>
-                            </div>
-                        </div>
-                        <button class="order-btn" onclick="orderFood('Spice Garden')">Order Now</button>
-                    </div>
-                </div>
-
-                <div class="restaurant-card" data-cuisine="chinese">
-                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500');">
-                        <div class="restaurant-badge">Chinese</div>
-                        <div class="rating-badge">⭐ 4.3</div>
-                    </div>
-                    <div class="restaurant-content">
-                        <h3 class="restaurant-name">Dragon Palace</h3>
-                        <p class="restaurant-cuisine">Chinese • Thai • Asian</p>
-                        <p class="restaurant-description">Delicious Chinese and Asian cuisine with fresh ingredients. Popular for noodles, fried rice, and dim sum.</p>
-                        <div class="restaurant-info">
-                            <div class="delivery-time">
-                                <strong>25-35 min</strong>
-                                <span>Delivery Time</span>
-                            </div>
-                            <div class="min-order">
-                                <strong>₹250</strong>
-                                <span>Min Order</span>
-                            </div>
-                        </div>
-                        <button class="order-btn" onclick="orderFood('Dragon Palace')">Order Now</button>
-                    </div>
-                </div>
-
-                <div class="restaurant-card" data-cuisine="italian">
-                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500');">
-                        <div class="restaurant-badge">Italian</div>
-                        <div class="rating-badge">⭐ 4.7</div>
-                    </div>
-                    <div class="restaurant-content">
-                        <h3 class="restaurant-name">Bella Italia</h3>
-                        <p class="restaurant-cuisine">Italian • Continental</p>
-                        <p class="restaurant-description">Authentic Italian pizzas and pasta made with imported ingredients. Wood-fired pizzas and creamy pasta.</p>
-                        <div class="restaurant-info">
-                            <div class="delivery-time">
-                                <strong>35-45 min</strong>
-                                <span>Delivery Time</span>
-                            </div>
-                            <div class="min-order">
-                                <strong>₹300</strong>
-                                <span>Min Order</span>
-                            </div>
-                        </div>
-                        <button class="order-btn" onclick="orderFood('Bella Italia')">Order Now</button>
-                    </div>
-                </div>
-
-                <div class="restaurant-card" data-cuisine="fast-food">
-                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500');">
-                        <div class="restaurant-badge">Fast Food</div>
-                        <div class="rating-badge">⭐ 4.2</div>
-                    </div>
-                    <div class="restaurant-content">
-                        <h3 class="restaurant-name">Burger Junction</h3>
-                        <p class="restaurant-cuisine">Burgers • Sandwiches • Fries</p>
-                        <p class="restaurant-description">Juicy burgers, crispy fries, and refreshing shakes. Perfect for quick meals and group orders.</p>
-                        <div class="restaurant-info">
-                            <div class="delivery-time">
-                                <strong>20-30 min</strong>
-                                <span>Delivery Time</span>
-                            </div>
-                            <div class="min-order">
-                                <strong>₹150</strong>
-                                <span>Min Order</span>
-                            </div>
-                        </div>
-                        <button class="order-btn" onclick="orderFood('Burger Junction')">Order Now</button>
-                    </div>
-                </div>
-
-                <div class="restaurant-card" data-cuisine="desserts">
-                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500');">
-                        <div class="restaurant-badge">Desserts</div>
-                        <div class="rating-badge">⭐ 4.6</div>
-                    </div>
-                    <div class="restaurant-content">
-                        <h3 class="restaurant-name">Sweet Dreams</h3>
-                        <p class="restaurant-cuisine">Cakes • Ice Cream • Pastries</p>
-                        <p class="restaurant-description">Delicious cakes, pastries, and ice creams for all occasions. Fresh baked goods and custom cakes available.</p>
-                        <div class="restaurant-info">
-                            <div class="delivery-time">
-                                <strong>40-50 min</strong>
-                                <span>Delivery Time</span>
-                            </div>
-                            <div class="min-order">
-                                <strong>₹200</strong>
-                                <span>Min Order</span>
-                            </div>
-                        </div>
-                        <button class="order-btn" onclick="orderFood('Sweet Dreams')">Order Now</button>
-                    </div>
-                </div>
-
-                <div class="restaurant-card" data-cuisine="indian">
-                    <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=500');">
-                        <div class="restaurant-badge">South Indian</div>
-                        <div class="rating-badge">⭐ 4.4</div>
-                    </div>
-                    <div class="restaurant-content">
-                        <h3 class="restaurant-name">Dosa Corner</h3>
-                        <p class="restaurant-cuisine">South Indian • Breakfast</p>
-                        <p class="restaurant-description">Crispy dosas, fluffy idlis, and filter coffee. Authentic South Indian breakfast and meals served fresh.</p>
-                        <div class="restaurant-info">
-                            <div class="delivery-time">
-                                <strong>25-35 min</strong>
-                                <span>Delivery Time</span>
-                            </div>
-                            <div class="min-order">
-                                <strong>₹180</strong>
-                                <span>Min Order</span>
-                            </div>
-                        </div>
-                        <button class="order-btn" onclick="orderFood('Dosa Corner')">Order Now</button>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features-section">
+    <!-- Main Content -->
+    <section class="services-main">
         <div class="container">
-            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
-                <h2 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;">Why Order With Us</h2>
-                <p style="color: #7f8c8d; font-size: 1.2rem;">Experience the best food delivery service in the city</p>
+            <div id="loader" class="loader-container">
+                <div class="loader"></div>
+                <p>Loading delicious restaurants...</p>
             </div>
 
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">🚚</div>
-                    <h3 class="feature-title">Fast Delivery</h3>
-                    <p class="feature-description">Quick and reliable delivery within 30 minutes. Real-time tracking available.</p>
+            <div class="restaurants-grid" id="restaurants-grid">
+                <!-- Restaurants will be loaded here dynamically -->
                 </div>
 
-                <div class="feature-item">
-                    <div class="feature-icon">🍽️</div>
-                    <h3 class="feature-title">Fresh Food</h3>
-                    <p class="feature-description">Hot and fresh meals delivered directly from restaurant kitchens to your door.</p>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon">💳</div>
-                    <h3 class="feature-title">Easy Payment</h3>
-                    <p class="feature-description">Multiple payment options including cash, cards, UPI, and digital wallets.</p>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon">⭐</div>
-                    <h3 class="feature-title">Top Rated</h3>
-                    <p class="feature-description">Curated selection of top-rated restaurants with excellent food quality.</p>
-                </div>
+            <div id="no-restaurants" class="no-restaurants" style="display: none;">
+                <h3>No Restaurants Available</h3>
+                <p>Check back soon for amazing food delivery options!</p>
             </div>
         </div>
     </section>
 
-    <!-- Special Offers Section -->
-    <section class="special-offers">
-        <div class="container">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Special Offers</h2>
-            <p style="font-size: 1.2rem; opacity: 0.9;">Save more with our exclusive deals and discounts</p>
-
-            <div class="offers-grid">
-                <div class="offer-card">
-                    <h3 class="offer-title">🎉 First Order</h3>
-                    <p class="offer-description">Get 50% off on your first order. Valid for orders above ₹300.</p>
-                    <div class="offer-code">Code: FIRST50</div>
+    <!-- Order Modal -->
+    <div id="order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Place Your Food Order</h2>
+            <form id="order-form">
+                <input type="hidden" id="restaurant-id" name="restaurantId">
+                <input type="hidden" id="restaurant-name" name="restaurantName">
+                
+                <div class="form-group">
+                    <label for="customer-name">Your Name *</label>
+                    <input type="text" id="customer-name" name="customerName" required>
                 </div>
 
-                <div class="offer-card">
-                    <h3 class="offer-title">🍽️ Weekend Special</h3>
-                    <p class="offer-description">30% off on weekend orders. Available Saturday and Sunday only.</p>
-                    <div class="offer-code">Code: WEEKEND30</div>
+                <div class="form-group">
+                    <label for="mobile">Mobile Number *</label>
+                    <input type="tel" id="mobile" name="mobileNumber" pattern="[0-9]{10}" maxlength="10" placeholder="Enter 10-digit mobile number" required>
                 </div>
 
-                <div class="offer-card">
-                    <h3 class="offer-title">👥 Group Order</h3>
-                    <p class="offer-description">₹200 off on orders above ₹1000. Perfect for office or family orders.</p>
-                    <div class="offer-code">Code: GROUP200</div>
+                <div class="form-group">
+                    <label for="email">Email (Optional)</label>
+                    <input type="email" id="email" name="email">
                 </div>
-            </div>
+                
+                <div class="form-group">
+                    <label for="delivery-address">Delivery Address *</label>
+                    <textarea id="delivery-address" name="deliveryAddress" rows="3" placeholder="Enter your complete delivery address" required></textarea>
         </div>
-    </section>
+                
+                <div class="form-group">
+                    <label for="order-items">Order Items *</label>
+                    <textarea id="order-items" name="orderItems" rows="4" placeholder="List the items you want to order (e.g., 2 Butter Chicken, 1 Naan, 1 Biryani)" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="delivery-date">Preferred Delivery Date *</label>
+                    <input type="date" id="delivery-date" name="deliveryDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="delivery-time">Preferred Delivery Time *</label>
+                    <input type="time" id="delivery-time" name="deliveryTime" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="special-instructions">Special Instructions</label>
+                    <textarea id="special-instructions" name="specialInstructions" rows="3" placeholder="Any special instructions for your order"></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary">Place Order</button>
+            </form>
+            </div>
+            </div>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section scroll-reveal from-left">
-                    <h3>Thanvish Travels</h3>
-                    <p>Your trusted partner for amazing travel experiences, comfortable cab rides, and delicious food delivery.</p>
-                </div>
-                <div class="footer-section scroll-reveal">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="travel-packages.html">Travel Packages</a></li>
-                        <li><a href="cab-services.html">Cab Services</a></li>
-                        <li><a href="food-delivery.html">Food Delivery</a></li>
-                        <li><a href="all-services.html">All Services</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section scroll-reveal">
-                    <h4>Contact Info</h4>
-                    <div class="contact-info">
-                        <p><i class="icon-phone"></i> +91 80999 96622</p>
-                        <p><i class="icon-email"></i> info@thanvishtravels.com</p>
-                        <p><i class="icon-location"></i> Mumbai, Maharashtra, India</p>
-                    </div>
-                </div>
-                <div class="footer-section scroll-reveal from-right">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="icon-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom scroll-reveal scale-up">
-                <p>&copy; 2024 Thanvish Travels. All rights reserved.</p>
-            </div>
+    <!-- Success Message -->
+    <div id="success-message" class="success-message">
+        <div class="success-content">
+            <h3>🎉 Order Placed Successfully!</h3>
+            <p>Thank you for choosing Thanvish Travels. Our food delivery team will contact you soon to confirm your order details.</p>
+            <button onclick="closeSuccess()" class="btn-primary">Continue Exploring</button>
         </div>
-    </footer>
+    </div>
 
-    <script src="script.js"></script>
     <script>
+        const FIREBASE_URL = 'https://travaling-76f20-default-rtdb.firebaseio.com';
+        let restaurants = [];
+        let currentFilter = 'all';
+
+        // Load restaurants on page load
         document.addEventListener('DOMContentLoaded', () => {
+            loadFoodDelivery();
             setupMobileNavigation();
-            setupFoodFilters();
+            setupRestaurantFilters();
+            setupOrderModal();
         });
 
-        function setupFoodFilters() {
+        async function loadFoodDelivery() {
+            try {
+                showLoader();
+                const response = await fetch(`${FIREBASE_URL}/packages.json`);
+                const data = await response.json();
+                
+                if (data && Object.keys(data).length > 0) {
+                    restaurants = Object.values(data).filter(restaurant => restaurant.type === 'food');
+                    // Ensure all restaurant objects have required fields
+                    restaurants = restaurants.map(restaurant => ({
+                        _id: restaurant._id || 'unknown',
+                        name: restaurant.name || 'Unknown Restaurant',
+                        description: restaurant.description || 'No description available',
+                        price: restaurant.price || 200,
+                        highlights: restaurant.highlights || '',
+                        location: restaurant.location || '',
+                        duration: restaurant.duration || '',
+                        type: restaurant.type || 'food',
+                        imageUrl: restaurant.imageUrl || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500' // Default image
+                    }));
+                } else {
+                    restaurants = [];
+                }
+                
+                displayFoodDelivery();
+                hideLoader();
+            } catch (error) {
+                console.error('Error loading food delivery:', error);
+                hideLoader();
+                showNoRestaurants();
+            }
+        }
+
+        function showLoader() {
+            document.getElementById('loader').style.display = 'flex';
+            document.getElementById('restaurants-grid').style.display = 'none';
+            document.getElementById('no-restaurants').style.display = 'none';
+        }
+
+        function hideLoader() {
+            document.getElementById('loader').style.display = 'none';
+        }
+
+        function showNoRestaurants() {
+            document.getElementById('restaurants-grid').style.display = 'none';
+            document.getElementById('no-restaurants').style.display = 'block';
+        }
+
+        function displayFoodDelivery() {
+            const restaurantsGrid = document.getElementById('restaurants-grid');
+            const noRestaurants = document.getElementById('no-restaurants');
+            
+            if (restaurants.length === 0) {
+                restaurantsGrid.style.display = 'none';
+                noRestaurants.style.display = 'block';
+                return;
+            }
+
+            restaurantsGrid.style.display = 'grid';
+            noRestaurants.style.display = 'none';
+
+            const filteredRestaurants = restaurants.filter(restaurant => {
+                if (currentFilter === 'all') return true;
+                
+                const restaurantName = restaurant.name.toLowerCase();
+                const restaurantDescription = restaurant.description.toLowerCase();
+                
+                switch (currentFilter) {
+                    case 'indian':
+                        return restaurantName.includes('indian') || restaurantDescription.includes('indian') || restaurantName.includes('biryani') || restaurantName.includes('curry');
+                    case 'chinese':
+                        return restaurantName.includes('chinese') || restaurantDescription.includes('chinese') || restaurantName.includes('noodles') || restaurantName.includes('fried rice');
+                    case 'italian':
+                        return restaurantName.includes('italian') || restaurantDescription.includes('italian') || restaurantName.includes('pizza') || restaurantName.includes('pasta');
+                    case 'fast-food':
+                        return restaurantName.includes('fast') || restaurantDescription.includes('fast') || restaurantName.includes('burger') || restaurantName.includes('sandwich');
+                    case 'desserts':
+                        return restaurantName.includes('dessert') || restaurantDescription.includes('dessert') || restaurantName.includes('cake') || restaurantName.includes('ice cream');
+                    default:
+                        return true;
+                }
+            });
+
+            restaurantsGrid.innerHTML = filteredRestaurants.map(restaurant => `
+                <div class="restaurant-card" data-category="${restaurant.type}">
+                    <div class="restaurant-image" style="background-image: url('${restaurant.imageUrl || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500'}');" onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500\')'">
+                        <div class="restaurant-badge">${restaurant.type === 'food' ? 'Restaurant' : restaurant.type}</div>
+                    </div>
+                    <div class="restaurant-content">
+                        <h3 class="restaurant-title">${restaurant.name}</h3>
+                        <p class="restaurant-description">${restaurant.description}</p>
+                        <ul class="restaurant-features">
+                            ${restaurant.duration ? `<li>${restaurant.duration}</li>` : ''}
+                            ${restaurant.location ? `<li>Location: ${restaurant.location}</li>` : ''}
+                            ${restaurant.highlights && typeof restaurant.highlights === 'string' && restaurant.highlights.trim() ? restaurant.highlights.split(',').map(highlight => `<li>${highlight.trim()}</li>`).join('') : ''}
+                        </ul>
+                        <div class="restaurant-footer">
+                            <div class="restaurant-price">₹${restaurant.price || '200'}<span>/order</span></div>
+                            <button class="order-btn" onclick="openOrderModal('${restaurant._id}', '${restaurant.name}')">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupRestaurantFilters() {
             const filterBtns = document.querySelectorAll('.filter-btn');
-            const restaurantCards = document.querySelectorAll('.restaurant-card');
 
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -640,24 +838,91 @@
                     filterBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
-                    const filter = btn.getAttribute('data-filter');
-
-                    // Filter restaurants
-                    restaurantCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-cuisine') === filter) {
-                            card.style.display = 'block';
-                            card.style.animation = 'fadeInUp 0.6s ease';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+                    currentFilter = btn.getAttribute('data-filter');
+                    displayFoodDelivery();
                 });
             });
         }
 
-        function orderFood(restaurantName) {
-            alert(`Redirecting to ${restaurantName} menu. You can browse and order your favorite dishes!`);
-            // In a real app, this would redirect to restaurant menu page
+        function setupOrderModal() {
+            const modal = document.getElementById('order-modal');
+            const closeBtn = modal.querySelector('.close');
+            const form = document.getElementById('order-form');
+
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const orderData = {
+                    restaurantId: formData.get('restaurantId'),
+                    restaurantName: formData.get('restaurantName'),
+                    customerName: formData.get('customerName'),
+                    mobileNumber: formData.get('mobileNumber'),
+                    email: formData.get('email'),
+                    deliveryAddress: formData.get('deliveryAddress'),
+                    orderItems: formData.get('orderItems'),
+                    deliveryDate: formData.get('deliveryDate'),
+                    deliveryTime: formData.get('deliveryTime'),
+                    specialInstructions: formData.get('specialInstructions'),
+                    status: 'pending',
+                    timestamp: new Date().toISOString()
+                };
+
+                try {
+                    const response = await fetch(`${FIREBASE_URL}/food-orders.json`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(orderData)
+                    });
+
+                    if (response.ok) {
+                        modal.style.display = 'none';
+                        showSuccessMessage();
+                        form.reset();
+                    } else {
+                        alert('Order failed. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error submitting order:', error);
+                    alert('Order failed. Please try again.');
+                }
+            });
+        }
+
+        function openOrderModal(restaurantId, restaurantName) {
+            document.getElementById('restaurant-id').value = restaurantId;
+            document.getElementById('restaurant-name').value = restaurantName;
+            document.getElementById('order-modal').style.display = 'block';
+        }
+
+        function showSuccessMessage() {
+            document.getElementById('success-message').style.display = 'flex';
+        }
+
+        function closeSuccess() {
+            document.getElementById('success-message').style.display = 'none';
+        }
+
+        function setupMobileNavigation() {
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.classList.toggle('active');
+            });
         }
     </script>
 </body>

@@ -181,29 +181,64 @@ function displayPackages() {
 
 async function loadBookings() {
     try {
-        const response = await fetch(`${FIREBASE_URL}/bookings.json`);
+        // Load travel bookings
+        const travelResponse = await fetch(`${FIREBASE_URL}/bookings.json`);
+        let travelBookings = [];
         
-        // Handle 404 (empty database) as normal
-        if (response.status === 404) {
-            bookings = [];
-            displayBookings();
-            return;
+        if (travelResponse.ok) {
+            const travelData = await travelResponse.json();
+            if (travelData && typeof travelData === 'object') {
+                travelBookings = Object.entries(travelData).map(([key, value]) => ({
+                    ...value,
+                    _id: key,
+                    type: 'travel'
+                }));
+            }
         }
+
+        // Load cab bookings
+        const cabResponse = await fetch(`${FIREBASE_URL}/cab-bookings.json`);
+        let cabBookings = [];
         
-        const data = await response.json();
-        
-        if (data && typeof data === 'object') {
-            bookings = Object.entries(data).map(([key, value]) => ({
-                ...value,
-                _id: key
-            }));
-        } else {
-            bookings = [];
+        if (cabResponse.ok) {
+            const cabData = await cabResponse.json();
+            if (cabData && typeof cabData === 'object') {
+                cabBookings = Object.entries(cabData).map(([key, value]) => ({
+                    ...value,
+                    _id: key,
+                    type: 'cab'
+                }));
+            }
         }
+
+        // Load food bookings
+        const foodResponse = await fetch(`${FIREBASE_URL}/food-orders.json`);
+        let foodBookings = [];
+        
+        if (foodResponse.ok) {
+            const foodData = await foodResponse.json();
+            if (foodData && typeof foodData === 'object') {
+                foodBookings = Object.entries(foodData).map(([key, value]) => ({
+                    ...value,
+                    _id: key,
+                    type: 'food'
+                }));
+            }
+        }
+
+        // Combine all bookings
+        bookings = [...travelBookings, ...cabBookings, ...foodBookings];
+        
+        // Sort by timestamp (newest first)
+        bookings.sort((a, b) => {
+            const timeA = new Date(a.timestamp || a.createdAt || a.bookingDate || 0).getTime();
+            const timeB = new Date(b.timestamp || b.createdAt || b.bookingDate || 0).getTime();
+            return timeB - timeA;
+        });
         
         displayBookings();
     } catch (error) {
-        console.log('Firebase database is empty or unavailable');
+        console.log('Error loading bookings:', error);
         bookings = [];
         displayBookings();
     }
@@ -250,31 +285,67 @@ function displayBookings() {
         return;
     }
 
-    container.innerHTML = bookings.map(booking => `
-        <div class="booking-item">
-            <div class="booking-header">
-                <div>
-                    <h3>${booking.customerName || 'Unknown Customer'}</h3>
-                    <span class="booking-status ${booking.status || 'pending'}">${(booking.status || 'pending').toUpperCase()}</span>
+    container.innerHTML = bookings.map(booking => {
+        let bookingType = booking.type || 'travel';
+        let serviceName = '';
+        let additionalInfo = '';
+        
+        // Determine service name and additional info based on booking type
+        switch (bookingType) {
+            case 'travel':
+                serviceName = booking.packageName || 'Travel Package';
+                additionalInfo = `
+                    <p><strong>Persons:</strong> ${booking.numberOfPersons || 1}</p>
+                    <p><strong>Start Date:</strong> ${formatDate(booking.startDate)}</p>
+                    ${booking.endDate ? `<p><strong>End Date:</strong> ${formatDate(booking.endDate)}</p>` : ''}
+                `;
+                break;
+            case 'cab':
+                serviceName = booking.cabName || 'Cab Service';
+                additionalInfo = `
+                    <p><strong>Pickup:</strong> ${booking.pickupLocation || 'N/A'}</p>
+                    <p><strong>Destination:</strong> ${booking.destination || 'N/A'}</p>
+                    <p><strong>Travel Date:</strong> ${formatDate(booking.travelDate)}</p>
+                    <p><strong>Travel Time:</strong> ${booking.travelTime || 'N/A'}</p>
+                    <p><strong>Passengers:</strong> ${booking.passengers || 1}</p>
+                `;
+                break;
+            case 'food':
+                serviceName = booking.restaurantName || 'Food Order';
+                additionalInfo = `
+                    <p><strong>Delivery Address:</strong> ${booking.deliveryAddress || 'N/A'}</p>
+                    <p><strong>Order Items:</strong> ${booking.orderItems || 'N/A'}</p>
+                    ${booking.deliveryTime ? `<p><strong>Delivery Time:</strong> ${booking.deliveryTime}</p>` : ''}
+                    ${booking.specialInstructions ? `<p><strong>Special Instructions:</strong> ${booking.specialInstructions}</p>` : ''}
+                `;
+                break;
+        }
+
+        return `
+            <div class="booking-item">
+                <div class="booking-header">
+                    <div>
+                        <h3>${booking.customerName || 'Unknown Customer'}</h3>
+                        <span class="booking-status ${booking.status || 'pending'}">${(booking.status || 'pending').toUpperCase()}</span>
+                        <span class="booking-type ${bookingType}">${bookingType.toUpperCase()}</span>
+                    </div>
+                    <div>
+                        <select onchange="updateBookingStatus('${booking._id}', this.value, '${bookingType}')">
+                            <option value="pending" ${(booking.status || 'pending') === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                            <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <select onchange="updateBookingStatus('${booking._id}', this.value)">
-                        <option value="pending" ${(booking.status || 'pending') === 'pending' ? 'selected' : ''}>Pending</option>
-                        <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
-                        <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
-                    </select>
-                </div>
+                <p><strong>Service:</strong> ${serviceName}</p>
+                <p><strong>Mobile:</strong> ${booking.mobileNumber || 'N/A'}</p>
+                ${booking.email ? `<p><strong>Email:</strong> ${booking.email}</p>` : ''}
+                ${additionalInfo}
+                ${booking.additionalNotes ? `<p><strong>Notes:</strong> ${booking.additionalNotes}</p>` : ''}
+                <p><small>Booked on: ${formatFirebaseDate(booking.timestamp || booking.createdAt || booking.bookingDate)}</small></p>
             </div>
-            <p><strong>Package:</strong> ${booking.packageName || 'Unknown Package'}</p>
-            <p><strong>Mobile:</strong> ${booking.mobileNumber || 'N/A'}</p>
-            ${booking.email ? `<p><strong>Email:</strong> ${booking.email}</p>` : ''}
-            <p><strong>Persons:</strong> ${booking.numberOfPersons || 1}</p>
-            <p><strong>Dates:</strong> ${formatDate(booking.preferredDates?.start)} 
-                ${booking.preferredDates?.end ? `- ${formatDate(booking.preferredDates.end)}` : ''}</p>
-            ${booking.additionalNotes ? `<p><strong>Notes:</strong> ${booking.additionalNotes}</p>` : ''}
-            <p><small>Booked on: ${formatFirebaseDate(booking.createdAt || booking.bookingDate)}</small></p>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 function showAddPackageForm() {
@@ -415,20 +486,44 @@ async function deletePackage(id) {
     }
 }
 
-async function updateBookingStatus(id, status) {
+async function updateBookingStatus(id, status, bookingType) {
     try {
-        const response = await fetch(`${FIREBASE_URL}/bookings/${id}/status.json`, {
+        let firebasePath = '';
+        
+        // Determine the correct Firebase path based on booking type
+        switch (bookingType) {
+            case 'travel':
+                firebasePath = `${FIREBASE_URL}/bookings/${id}/status.json`;
+                break;
+            case 'cab':
+                firebasePath = `${FIREBASE_URL}/cab-bookings/${id}/status.json`;
+                break;
+            case 'food':
+                firebasePath = `${FIREBASE_URL}/food-orders/${id}/status.json`;
+                break;
+            default:
+                firebasePath = `${FIREBASE_URL}/bookings/${id}/status.json`;
+        }
+        
+        const response = await fetch(firebasePath, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(status)
         });
 
         if (response.ok) {
-            loadBookings();
+            // Update the local booking status
+            const booking = bookings.find(b => b._id === id);
+            if (booking) {
+                booking.status = status;
+            }
+            
+            // Show success message
+            alert('Booking status updated successfully!');
         } else {
-            alert('Error updating booking status. Please try again.');
+            alert('Failed to update booking status. Please try again.');
         }
     } catch (error) {
         console.error('Error updating booking status:', error);

@@ -5,44 +5,234 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Packages - Thanvish Travels</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Page specific styles */
+        /* Indian-Inspired Professional Design */
+        :root {
+            --primary-gold: #FFD700;
+            --secondary-gold: #FFA500;
+            --deep-red: #DC143C;
+            --saffron: #FF9933;
+            --navy-blue: #000080;
+            --forest-green: #228B22;
+            --rich-purple: #800080;
+            --warm-beige: #F5F5DC;
+            --cream: #FFFDD0;
+            --text-dark: #2C1810;
+            --text-light: #8B7355;
+            --gradient-gold: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00);
+            --gradient-royal: linear-gradient(135deg, #000080, #4169E1, #1E90FF);
+            --gradient-nature: linear-gradient(135deg, #228B22, #32CD32, #90EE90);
+            --shadow-elegant: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-gold: 0 5px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #FFF8DC, #F5F5DC, #FAF0E6);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Elements */
+        .mandala-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--primary-gold) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--saffron) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, var(--deep-red) 0%, transparent 50%);
+            animation: mandalaFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes mandalaFloat {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+        }
+
+        /* Professional Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid var(--primary-gold);
+            box-shadow: var(--shadow-elegant);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-brand .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-gold);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Hero Section */
         .page-hero {
-            background: linear-gradient(135deg, rgba(52, 152, 219, 0.9), rgba(155, 89, 182, 0.9)), 
+            background: linear-gradient(135deg, rgba(0, 0, 128, 0.8), rgba(34, 139, 34, 0.8)), 
                         url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600') center/cover;
-            height: 60vh;
-            min-height: 400px;
+            height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
             position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mandala" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,215,0,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23mandala)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
         }
         
         .page-hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
             font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease-out;
         }
         
         .page-hero-content p {
             font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto;
+            margin-bottom: 2rem;
             opacity: 0.95;
             line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
-        
-        .services-main {
-            padding: 5rem 0;
-            background: #f8f9fa;
+
+        @keyframes fadeInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
-        
+
+        /* Filter Section */
         .filter-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 3rem 0;
+            border-bottom: 2px solid var(--primary-gold);
+        }
+
+        .section-header {
             text-align: center;
             margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-gold);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .filter-buttons {
@@ -54,42 +244,81 @@
         }
         
         .filter-btn {
-            padding: 0.8rem 2rem;
+            padding: 12px 30px;
             background: white;
-            color: #2c3e50;
-            border: 2px solid #e9ecef;
-            border-radius: 25px;
+            color: var(--text-dark);
+            border: 2px solid var(--primary-gold);
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-gold);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .filter-btn:hover::before,
+        .filter-btn.active::before {
+            left: 0;
         }
         
         .filter-btn:hover,
         .filter-btn.active {
-            background: #3498db;
             color: white;
-            border-color: #3498db;
             transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
         }
         
+        /* Packages Grid */
         .packages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
+            padding: 0 20px;
         }
         
         .package-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-elegant);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-gold);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .package-card:hover::before {
+            transform: scaleX(1);
         }
         
         .package-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         }
         
         .package-image {
@@ -97,18 +326,24 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .package-card:hover .package-image {
+            transform: scale(1.05);
         }
         
         .package-badge {
             position: absolute;
             top: 1rem;
             left: 1rem;
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            background: var(--gradient-gold);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            padding: 8px 16px;
+            border-radius: 25px;
             font-size: 0.9rem;
             font-weight: 600;
+            box-shadow: var(--shadow-gold);
         }
         
         .package-content {
@@ -116,14 +351,15 @@
         }
         
         .package-title {
-            font-size: 1.5rem;
-            color: #2c3e50;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-dark);
             margin-bottom: 1rem;
-            font-weight: 700;
+            font-weight: 600;
         }
         
         .package-description {
-            color: #7f8c8d;
+            color: var(--text-light);
             margin-bottom: 1.5rem;
             line-height: 1.6;
         }
@@ -135,53 +371,153 @@
         
         .package-features li {
             padding: 0.5rem 0;
-            color: #34495e;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
         }
         
         .package-features li::before {
-            content: "✓";
-            color: #27ae60;
-            font-weight: bold;
-            margin-right: 0.5rem;
+            content: "✨";
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
         }
         
         .package-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 1rem;
-            border-top: 2px solid #f8f9fa;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--warm-beige);
         }
         
         .package-price {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            color: #e74c3c;
+            color: var(--deep-red);
+            font-family: 'Playfair Display', serif;
         }
         
         .package-price span {
             font-size: 1rem;
-            color: #7f8c8d;
+            color: var(--text-light);
             font-weight: normal;
         }
         
         .book-btn {
-            background: linear-gradient(135deg, #3498db, #2980b9);
+            background: var(--gradient-gold);
             color: white;
-            padding: 0.8rem 2rem;
+            padding: 12px 30px;
             border: none;
-            border-radius: 25px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
+            font-size: 1rem;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-gold);
         }
         
         .book-btn:hover {
-            background: linear-gradient(135deg, #2980b9, #21618c);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
         }
-        
+
+        /* Loader and No Packages */
+        .loader-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            text-align: center;
+        }
+
+        .loader {
+            border: 4px solid var(--warm-beige);
+            border-top: 4px solid var(--primary-gold);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-container p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .no-packages {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-light);
+        }
+
+        .no-packages h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        /* Modal Styling */
+        .modal {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--primary-gold);
+        }
+
+        .modal-content h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            border: 2px solid var(--warm-beige);
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        /* Success Message */
+        .success-message {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .success-content {
+            background: white;
+            border-radius: 20px;
+            border: 2px solid var(--primary-gold);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .success-content h3 {
+            color: var(--forest-green);
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .page-hero-content h1 {
                 font-size: 2.5rem;
@@ -189,38 +525,43 @@
             
             .packages-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
             
             .filter-buttons {
                 flex-direction: column;
                 align-items: center;
             }
+            
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Cultural Elements */
+        .cultural-pattern {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23FFD700" stroke-width="2"/><circle cx="50" cy="50" r="20" fill="none" stroke="%23FFD700" stroke-width="2"/></svg>');
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <!-- Background Animation Elements -->
-    <div class="background-particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
+    <!-- Mandala Background -->
+    <div class="mandala-bg"></div>
     
-    <div class="geometric-shapes">
-        <div class="shape circle"></div>
-        <div class="shape square"></div>
-        <div class="shape triangle"></div>
-        <div class="shape circle"></div>
-        <div class="shape square"></div>
-        <div class="shape triangle"></div>
-    </div>
+    <!-- Cultural Pattern Elements -->
+    <div class="cultural-pattern" style="top: 10%; left: 5%;"></div>
+    <div class="cultural-pattern" style="top: 20%; right: 10%;"></div>
+    <div class="cultural-pattern" style="bottom: 30%; left: 15%;"></div>
 
     <header>
         <nav class="navbar">
@@ -260,212 +601,228 @@
 
     <!-- Hero Section -->
     <section class="page-hero">
-        <div class="page-hero-content scroll-reveal from-bottom">
-            <h1>Travel Packages</h1>
-            <p>Discover amazing destinations with our carefully curated travel packages. From exotic beaches to mountain adventures, we have the perfect trip for you.</p>
+        <div class="page-hero-content">
+            <h1>Discover Incredible India</h1>
+            <p>Embark on unforgettable journeys through the heart of India. From the majestic Himalayas to the serene backwaters of Kerala, experience the rich culture, heritage, and beauty of our incredible nation.</p>
         </div>
     </section>
 
-    <!-- Main Content -->
-    <section class="services-main">
+    <!-- Filter Section -->
+    <section class="filter-section">
         <div class="container">
-            <div class="filter-section">
-                <h2 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;">Choose Your Adventure</h2>
-                <p style="color: #7f8c8d; font-size: 1.2rem;">Filter packages by destination type or budget</p>
+            <div class="section-header">
+                <h2>Choose Your Adventure</h2>
+                <p>Explore diverse destinations and experiences tailored to your preferences</p>
+            </div>
                 
                 <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">All Packages</button>
+                <button class="filter-btn active" data-filter="all">All Destinations</button>
                     <button class="filter-btn" data-filter="domestic">Domestic</button>
                     <button class="filter-btn" data-filter="international">International</button>
                     <button class="filter-btn" data-filter="adventure">Adventure</button>
                     <button class="filter-btn" data-filter="luxury">Luxury</button>
                     <button class="filter-btn" data-filter="budget">Budget</button>
                 </div>
-            </div>
-
-            <div class="packages-grid" id="packages-grid">
-                <!-- Domestic Packages -->
-                <div class="package-card" data-category="domestic adventure">
-                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1539650116574-75c0c6d0d867?w=500');">
-                        <div class="package-badge">Adventure</div>
-                    </div>
-                    <div class="package-content">
-                        <h3 class="package-title">Goa Beach Paradise</h3>
-                        <p class="package-description">Experience the vibrant beaches, water sports, and nightlife of Goa with this 5-day adventure package.</p>
-                        <ul class="package-features">
-                            <li>5 Days / 4 Nights</li>
-                            <li>Beach Resort Accommodation</li>
-                            <li>Water Sports Activities</li>
-                            <li>Local Sightseeing</li>
-                            <li>All Meals Included</li>
-                        </ul>
-                        <div class="package-footer">
-                            <div class="package-price">₹25,999<span>/person</span></div>
-                            <button class="book-btn" onclick="bookPackage('Goa Beach Paradise')">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="package-card" data-category="domestic luxury">
-                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500');">
-                        <div class="package-badge">Luxury</div>
-                    </div>
-                    <div class="package-content">
-                        <h3 class="package-title">Kashmir Valley Deluxe</h3>
-                        <p class="package-description">Luxury stay in houseboats and premium hotels while exploring the breathtaking beauty of Kashmir.</p>
-                        <ul class="package-features">
-                            <li>7 Days / 6 Nights</li>
-                            <li>Houseboat & 5-Star Hotels</li>
-                            <li>Shikara Rides</li>
-                            <li>Gulmarg & Pahalgam Tours</li>
-                            <li>Premium Transportation</li>
-                        </ul>
-                        <div class="package-footer">
-                            <div class="package-price">₹55,999<span>/person</span></div>
-                            <button class="book-btn" onclick="bookPackage('Kashmir Valley Deluxe')">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="package-card" data-category="domestic budget">
-                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500');">
-                        <div class="package-badge">Budget</div>
-                    </div>
-                    <div class="package-content">
-                        <h3 class="package-title">Rajasthan Heritage Tour</h3>
-                        <p class="package-description">Explore the royal heritage of Rajasthan with visits to Jaipur, Udaipur, and Jodhpur on a budget.</p>
-                        <ul class="package-features">
-                            <li>6 Days / 5 Nights</li>
-                            <li>3-Star Hotel Stay</li>
-                            <li>Local Transport</li>
-                            <li>Palace & Fort Tours</li>
-                            <li>Cultural Experiences</li>
-                        </ul>
-                        <div class="package-footer">
-                            <div class="package-price">₹18,999<span>/person</span></div>
-                            <button class="book-btn" onclick="bookPackage('Rajasthan Heritage Tour')">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- International Packages -->
-                <div class="package-card" data-category="international luxury">
-                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500');">
-                        <div class="package-badge">International</div>
-                    </div>
-                    <div class="package-content">
-                        <h3 class="package-title">Dubai Extravaganza</h3>
-                        <p class="package-description">Experience the luxury and glamour of Dubai with shopping, desert safaris, and world-class attractions.</p>
-                        <ul class="package-features">
-                            <li>5 Days / 4 Nights</li>
-                            <li>4-Star Hotel Stay</li>
-                            <li>Desert Safari</li>
-                            <li>City Tour & Shopping</li>
-                            <li>Burj Khalifa Visit</li>
-                        </ul>
-                        <div class="package-footer">
-                            <div class="package-price">₹75,999<span>/person</span></div>
-                            <button class="book-btn" onclick="bookPackage('Dubai Extravaganza')">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="package-card" data-category="international adventure">
-                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=500');">
-                        <div class="package-badge">Adventure</div>
-                    </div>
-                    <div class="package-content">
-                        <h3 class="package-title">Thailand Explorer</h3>
-                        <p class="package-description">Discover the beaches of Phuket, temples of Bangkok, and adventure activities in this Thailand tour.</p>
-                        <ul class="package-features">
-                            <li>7 Days / 6 Nights</li>
-                            <li>Beach & City Hotels</li>
-                            <li>Island Hopping</li>
-                            <li>Temple Tours</li>
-                            <li>Traditional Thai Massage</li>
-                        </ul>
-                        <div class="package-footer">
-                            <div class="package-price">₹65,999<span>/person</span></div>
-                            <button class="book-btn" onclick="bookPackage('Thailand Explorer')">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="package-card" data-category="international luxury">
-                    <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1549144511-f099e773c147?w=500');">
-                        <div class="package-badge">Luxury</div>
-                    </div>
-                    <div class="package-content">
-                        <h3 class="package-title">Europe Grand Tour</h3>
-                        <p class="package-description">Visit Paris, Rome, and Amsterdam in this luxury European tour with premium accommodations.</p>
-                        <ul class="package-features">
-                            <li>10 Days / 9 Nights</li>
-                            <li>5-Star Hotel Chain</li>
-                            <li>High-Speed Train Travel</li>
-                            <li>Guided City Tours</li>
-                            <li>Premium Dining</li>
-                        </ul>
-                        <div class="package-footer">
-                            <div class="package-price">₹1,45,999<span>/person</span></div>
-                            <button class="book-btn" onclick="bookPackage('Europe Grand Tour')">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
-    <footer class="footer">
+    <!-- Main Content -->
+    <section class="services-main">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section scroll-reveal from-left">
-                    <h3>Thanvish Travels</h3>
-                    <p>Your trusted partner for amazing travel experiences, comfortable cab rides, and delicious food delivery.</p>
-                </div>
-                <div class="footer-section scroll-reveal">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="travel-packages.html">Travel Packages</a></li>
-                        <li><a href="cab-services.html">Cab Services</a></li>
-                        <li><a href="food-delivery.html">Food Delivery</a></li>
-                        <li><a href="all-services.html">All Services</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section scroll-reveal">
-                    <h4>Contact Info</h4>
-                    <div class="contact-info">
-                        <p><i class="icon-phone"></i> +91 80999 96622</p>
-                        <p><i class="icon-email"></i> info@thanvishtravels.com</p>
-                        <p><i class="icon-location"></i> Mumbai, Maharashtra, India</p>
-                    </div>
-                </div>
-                <div class="footer-section scroll-reveal from-right">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="icon-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
-                    </div>
-                </div>
+            <div id="loader" class="loader-container">
+                <div class="loader"></div>
+                <p>Loading amazing travel experiences...</p>
             </div>
-            <div class="footer-bottom scroll-reveal scale-up">
-                <p>&copy; 2024 Thanvish Travels. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 
-    <script src="script.js"></script>
+            <div class="packages-grid" id="packages-grid">
+                <!-- Packages will be loaded here dynamically -->
+                    </div>
+
+            <div id="no-packages" class="no-packages" style="display: none;">
+                <h3>No Travel Packages Available</h3>
+                <p>Check back soon for amazing travel packages!</p>
+                        </div>
+                    </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Book Your Dream Journey</h2>
+            <form id="booking-form">
+                <input type="hidden" id="package-id" name="packageId">
+                <input type="hidden" id="package-name" name="packageName">
+                
+                <div class="form-group">
+                    <label for="customer-name">Your Name *</label>
+                    <input type="text" id="customer-name" name="customerName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mobile">Mobile Number *</label>
+                    <input type="tel" id="mobile" name="mobileNumber" pattern="[0-9]{10}" maxlength="10" placeholder="Enter 10-digit mobile number" required>
+                    </div>
+                
+                <div class="form-group">
+                    <label for="email">Email (Optional)</label>
+                    <input type="email" id="email" name="email">
+                        </div>
+                
+                <div class="form-group">
+                    <label for="persons">Number of Persons *</label>
+                    <input type="number" id="persons" name="numberOfPersons" min="1" value="1" required>
+                    </div>
+
+                <div class="form-group">
+                    <label for="start-date">Preferred Start Date *</label>
+                    <input type="date" id="start-date" name="startDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="end-date">End Date (Optional)</label>
+                    <input type="date" id="end-date" name="endDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Additional Notes</label>
+                    <textarea id="notes" name="additionalNotes" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Book Your Journey</button>
+            </form>
+                        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="success-message" class="success-message">
+        <div class="success-content">
+            <h3>🎉 Booking Successful!</h3>
+            <p>Thank you for choosing Thanvish Travels. Our travel experts will contact you soon to confirm your journey details.</p>
+            <button onclick="closeSuccess()" class="btn-primary">Continue Exploring</button>
+                    </div>
+                </div>
+
     <script>
-        // Filter functionality
+        const FIREBASE_URL = 'https://travaling-76f20-default-rtdb.firebaseio.com';
+        let packages = [];
+        let currentFilter = 'all';
+
+        // Load packages on page load
         document.addEventListener('DOMContentLoaded', () => {
+            loadTravelPackages();
             setupMobileNavigation();
             setupPackageFilters();
+            setupBookingModal();
         });
+
+        async function loadTravelPackages() {
+            try {
+                showLoader();
+                const response = await fetch(`${FIREBASE_URL}/packages.json`);
+                const data = await response.json();
+                
+                if (data && Object.keys(data).length > 0) {
+                    packages = Object.values(data).filter(package => package.type === 'trip');
+                    // Ensure all package objects have required fields
+                    packages = packages.map(package => ({
+                        _id: package._id || 'unknown',
+                        name: package.name || 'Unknown Package',
+                        description: package.description || 'No description available',
+                        price: package.price || 0,
+                        highlights: package.highlights || '',
+                        location: package.location || '',
+                        duration: package.duration || '',
+                        type: package.type || 'trip',
+                        imageUrl: package.imageUrl || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500' // Default image
+                    }));
+                } else {
+                    packages = [];
+                }
+                
+                displayTravelPackages();
+                hideLoader();
+            } catch (error) {
+                console.error('Error loading packages:', error);
+                hideLoader();
+                showNoPackages();
+            }
+        }
+
+        function showLoader() {
+            document.getElementById('loader').style.display = 'flex';
+            document.getElementById('packages-grid').style.display = 'none';
+            document.getElementById('no-packages').style.display = 'none';
+        }
+
+        function hideLoader() {
+            document.getElementById('loader').style.display = 'none';
+        }
+
+        function showNoPackages() {
+            document.getElementById('packages-grid').style.display = 'none';
+            document.getElementById('no-packages').style.display = 'block';
+        }
+
+        function displayTravelPackages() {
+            const packagesGrid = document.getElementById('packages-grid');
+            const noPackages = document.getElementById('no-packages');
+            
+            if (packages.length === 0) {
+                packagesGrid.style.display = 'none';
+                noPackages.style.display = 'block';
+                return;
+            }
+
+            packagesGrid.style.display = 'grid';
+            noPackages.style.display = 'none';
+
+            const filteredPackages = packages.filter(package => {
+                if (currentFilter === 'all') return true;
+                
+                const packageName = package.name.toLowerCase();
+                const packageDescription = package.description.toLowerCase();
+                
+                switch (currentFilter) {
+                    case 'domestic':
+                        return !packageName.includes('international') && !packageName.includes('dubai') && !packageName.includes('thailand') && !packageName.includes('europe');
+                    case 'international':
+                        return packageName.includes('international') || packageName.includes('dubai') || packageName.includes('thailand') || packageName.includes('europe');
+                    case 'adventure':
+                        return packageName.includes('adventure') || packageDescription.includes('adventure') || packageName.includes('explorer');
+                    case 'luxury':
+                        return packageName.includes('luxury') || packageDescription.includes('luxury') || packageName.includes('deluxe') || packageName.includes('premium');
+                    case 'budget':
+                        return packageName.includes('budget') || packageDescription.includes('budget') || packageName.includes('economy');
+                    default:
+                        return true;
+                }
+            });
+
+            packagesGrid.innerHTML = filteredPackages.map(package => `
+                <div class="package-card" data-category="${package.type}">
+                    <div class="package-image" style="background-image: url('${package.imageUrl || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500'}');" onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500\')'">
+                        <div class="package-badge">${package.type === 'trip' ? 'Travel' : package.type}</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">${package.name}</h3>
+                        <p class="package-description">${package.description}</p>
+                        <ul class="package-features">
+                            ${package.duration ? `<li>${package.duration}</li>` : ''}
+                            ${package.location ? `<li>Location: ${package.location}</li>` : ''}
+                            ${package.highlights && typeof package.highlights === 'string' && package.highlights.trim() ? package.highlights.split(',').map(highlight => `<li>${highlight.trim()}</li>`).join('') : ''}
+                        </ul>
+                        <div class="package-footer">
+                            <div class="package-price">₹${package.price || '0'}<span>/person</span></div>
+                            <button class="book-btn" onclick="openBookingModal('${package._id}', '${package.name}')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
 
         function setupPackageFilters() {
             const filterBtns = document.querySelectorAll('.filter-btn');
-            const packageCards = document.querySelectorAll('.package-card');
 
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -473,24 +830,90 @@
                     filterBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
-                    const filter = btn.getAttribute('data-filter');
-
-                    // Filter packages
-                    packageCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
-                            card.style.display = 'block';
-                            card.style.animation = 'fadeInUp 0.6s ease';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+                    currentFilter = btn.getAttribute('data-filter');
+                    displayTravelPackages();
                 });
             });
         }
 
-        function bookPackage(packageName) {
-            // Redirect to main page with package info
-            window.location.href = `index.html?package=${encodeURIComponent(packageName)}`;
+        function setupBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            const closeBtn = modal.querySelector('.close');
+            const form = document.getElementById('booking-form');
+
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const bookingData = {
+                    packageId: formData.get('packageId'),
+                    packageName: formData.get('packageName'),
+                    customerName: formData.get('customerName'),
+                    mobileNumber: formData.get('mobileNumber'),
+                    email: formData.get('email'),
+                    numberOfPersons: formData.get('numberOfPersons'),
+                    startDate: formData.get('startDate'),
+                    endDate: formData.get('endDate'),
+                    additionalNotes: formData.get('additionalNotes'),
+                    status: 'pending',
+                    timestamp: new Date().toISOString()
+                };
+
+                try {
+                    const response = await fetch(`${FIREBASE_URL}/bookings.json`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(bookingData)
+                    });
+
+                    if (response.ok) {
+                        modal.style.display = 'none';
+                        showSuccessMessage();
+                        form.reset();
+                    } else {
+                        alert('Booking failed. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error submitting booking:', error);
+                    alert('Booking failed. Please try again.');
+                }
+            });
+        }
+
+        function openBookingModal(packageId, packageName) {
+            document.getElementById('package-id').value = packageId;
+            document.getElementById('package-name').value = packageName;
+            document.getElementById('booking-modal').style.display = 'block';
+        }
+
+        function showSuccessMessage() {
+            document.getElementById('success-message').style.display = 'flex';
+        }
+
+        function closeSuccess() {
+            document.getElementById('success-message').style.display = 'none';
+        }
+
+        function setupMobileNavigation() {
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.classList.toggle('active');
+            });
         }
     </script>
 </body>

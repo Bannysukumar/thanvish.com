@@ -212,6 +212,30 @@ body {
 
 .booking-status.cancelled {
     background: #e74c3c;
+}
+
+.booking-type {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+}
+
+.booking-type.travel {
+    background: #3498db;
+    color: white;
+}
+
+.booking-type.cab {
+    background: #27ae60;
+    color: white;
+}
+
+.booking-type.food {
+    background: #e67e22;
     color: white;
 }
 

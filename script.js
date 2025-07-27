@@ -18,12 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Debug navigation
     console.log('Contact link found:', document.querySelector('a[href="contact.html"]'));
     
-    // Add search functionality
-    document.getElementById('search-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            searchPackages();
-        }
-    });
+    // Add search functionality - only if search input exists
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchPackages();
+            }
+        });
+    }
 });
 
 // Real-time update functionality
@@ -120,16 +123,26 @@ function setupEventListeners() {
         // These are handled by their onclick attributes, no additional event listeners needed
     });
 
-    // Modal close
-    document.querySelector('.close').addEventListener('click', closeModal);
-    window.addEventListener('click', (e) => {
-        if (e.target === document.getElementById('booking-modal')) {
-            closeModal();
-        }
-    });
+    // Modal close - only if modal exists
+    const modalClose = document.querySelector('.close');
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+    }
+    
+    const bookingModal = document.getElementById('booking-modal');
+    if (bookingModal) {
+        window.addEventListener('click', (e) => {
+            if (e.target === bookingModal) {
+                closeModal();
+            }
+        });
+    }
 
-    // Form submission
-    document.getElementById('booking-form').addEventListener('submit', handleBookingSubmit);
+    // Form submission - only if form exists
+    const bookingForm = document.getElementById('booking-form');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', handleBookingSubmit);
+    }
     
     // Contact form submission
     const contactForm = document.getElementById('contact-form');
@@ -218,25 +231,55 @@ async function loadPackages() {
 }
 
 function showLoader() {
-    document.getElementById('loader').style.display = 'flex';
-    document.getElementById('packages-container').style.display = 'none';
+    const loader = document.getElementById('loader');
+    const packagesContainer = document.getElementById('packages-container');
+    
+    if (loader) {
+        loader.style.display = 'flex';
+    }
+    if (packagesContainer) {
+        packagesContainer.style.display = 'none';
+    }
 }
 
 function hideLoader() {
-    document.getElementById('loader').style.display = 'none';
-    document.getElementById('packages-container').style.display = 'grid';
+    const loader = document.getElementById('loader');
+    const packagesContainer = document.getElementById('packages-container');
+    
+    if (loader) {
+        loader.style.display = 'none';
+    }
+    if (packagesContainer) {
+        packagesContainer.style.display = 'grid';
+    }
 }
 
 
 function openBookingModal(packageId, packageName) {
-    document.getElementById('package-id').value = packageId;
-    document.getElementById('package-name').value = packageName;
-    document.getElementById('booking-modal').style.display = 'block';
+    const packageIdInput = document.getElementById('package-id');
+    const packageNameInput = document.getElementById('package-name');
+    const bookingModal = document.getElementById('booking-modal');
+    const startDateInput = document.getElementById('start-date');
+    const endDateInput = document.getElementById('end-date');
+    
+    if (packageIdInput) {
+        packageIdInput.value = packageId;
+    }
+    if (packageNameInput) {
+        packageNameInput.value = packageName;
+    }
+    if (bookingModal) {
+        bookingModal.style.display = 'block';
+    }
     
     // Set minimum date to today
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById('start-date').min = today;
-    document.getElementById('end-date').min = today;
+    if (startDateInput) {
+        startDateInput.min = today;
+    }
+    if (endDateInput) {
+        endDateInput.min = today;
+    }
 }
 
 function sendWhatsAppMessage(packageName) {
@@ -260,8 +303,15 @@ function sendWhatsAppWithMessage(message) {
 }
 
 function closeModal() {
-    document.getElementById('booking-modal').style.display = 'none';
-    document.getElementById('booking-form').reset();
+    const bookingModal = document.getElementById('booking-modal');
+    const bookingForm = document.getElementById('booking-form');
+    
+    if (bookingModal) {
+        bookingModal.style.display = 'none';
+    }
+    if (bookingForm) {
+        bookingForm.reset();
+    }
 }
 
 async function handleBookingSubmit(e) {
@@ -334,11 +384,17 @@ Please confirm my booking. Thank you!`;
 }
 
 function showSuccessMessage() {
-    document.getElementById('success-message').style.display = 'block';
+    const successMessage = document.getElementById('success-message');
+    if (successMessage) {
+        successMessage.style.display = 'block';
+    }
 }
 
 function closeSuccess() {
-    document.getElementById('success-message').style.display = 'none';
+    const successMessage = document.getElementById('success-message');
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
 }
 
 // Scroll-triggered animations
@@ -379,6 +435,11 @@ function setupParallaxEffect() {
 // Enhanced package display with staggered animations
 function displayPackages() {
     const container = document.getElementById('packages-container');
+    
+    // If container doesn't exist (e.g., on service pages), don't proceed
+    if (!container) {
+        return;
+    }
     
     // Debug info
     console.log('Current filter:', currentFilter);
@@ -430,27 +491,18 @@ function displayPackages() {
     
     // Add update animation to new packages
     setTimeout(() => {
-        document.querySelectorAll('.package-card').forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
-            card.classList.remove('stagger-item');
-            card.offsetHeight; // Force reflow
-            card.classList.add('stagger-item');
-            
-            // Add update animation for recently added packages
-            if (pkg.updatedAt && new Date(pkg.updatedAt) > new Date(Date.now() - 10000)) {
-                card.classList.add('updated');
-                setTimeout(() => card.classList.remove('updated'), 500);
-            }
+        document.querySelectorAll('.stagger-item').forEach(item => {
+            item.classList.add('animate-in');
         });
-    }, 50);
-    
-    // Show real-time indicator
-    showRealTimeIndicator();
+    }, 100);
 }
 
 // Search functionality
 function searchPackages() {
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const searchInput = document.getElementById('search-input');
+    if (!searchInput) return;
+    
+    const searchTerm = searchInput.value.toLowerCase();
     
     if (!searchTerm) {
         displayPackages();
@@ -465,6 +517,7 @@ function searchPackages() {
     );
     
     const container = document.getElementById('packages-container');
+    if (!container) return;
     
     if (filteredPackages.length === 0) {
         container.innerHTML = `
@@ -495,7 +548,10 @@ function searchPackages() {
 }
 
 function clearSearch() {
-    document.getElementById('search-input').value = '';
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.value = '';
+    }
     displayPackages();
 }
 
@@ -569,57 +625,12 @@ function setupMobileNavigation() {
         lastScrollY = window.scrollY;
     });
     
-    // Setup dropdown filters
-    setupDropdownFilters();
-    
     // Prevent dropdown parent from navigating
     document.querySelectorAll('.nav-dropdown > .nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
         });
     });
-}
-
-// Update dropdown link functionality for new navigation
-function setupDropdownFilters() {
-    document.querySelectorAll('.dropdown-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Show "Coming Soon" message for all dropdown links
-            showComingSoonMessage();
-        });
-    });
-}
-
-// Show coming soon modal
-function showComingSoonMessage() {
-    // Create modal if it doesn't exist
-    let comingSoonModal = document.getElementById('coming-soon-modal');
-    if (!comingSoonModal) {
-        comingSoonModal = document.createElement('div');
-        comingSoonModal.id = 'coming-soon-modal';
-        comingSoonModal.className = 'modal';
-        comingSoonModal.innerHTML = `
-            <div class="modal-content" style="max-width: 400px; text-align: center;">
-                <span class="close" onclick="closeComingSoonModal()">&times;</span>
-                <h2 style="color: #007bff; margin-bottom: 1rem;">🚀 Coming Soon!</h2>
-                <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">We're working hard to bring you amazing new features. Stay tuned!</p>
-                <button class="btn-primary" onclick="closeComingSoonModal()">Got it!</button>
-            </div>
-        `;
-        document.body.appendChild(comingSoonModal);
-    }
-    
-    comingSoonModal.style.display = 'block';
-}
-
-// Close coming soon modal
-function closeComingSoonModal() {
-    const modal = document.getElementById('coming-soon-modal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
 }
 
 // Show real-time indicator

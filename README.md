@@ -2,7 +2,7 @@
 
 # Thanvish
 
-**Thanvish** is an open-source open-source software project. The code is written mainly in HTML and maintained by [Banny Sukumar](https://github.com/Bannysukumar), a blockchain and full-stack developer.
+**Thanvish** is an open-source software project. The code is written mainly in HTML and maintained by [Banny Sukumar](https://github.com/Bannysukumar), a blockchain and full-stack developer.
 
 This repository is public so developers can read the source, reuse it under the MIT License, and send improvements.
 

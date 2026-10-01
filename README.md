@@ -1,41 +1,51 @@
-<!-- readme-seo: bannysukumar -->
+# Thanvish Travels - Book Your Dream Journey
 
-# Thanvish
+Thanvish Travels - Book Your Dream Journey is the site whose HTML title is "Thanvish Travels - Book Your Dream Journey".
 
-**Thanvish** is an open-source software project. The code is written mainly in HTML and maintained by [Banny Sukumar](https://github.com/Bannysukumar), a blockchain and full-stack developer.
+[![License](https://img.shields.io/github/license/Bannysukumar/thanvish.com)](https://github.com/Bannysukumar/thanvish.com/blob/main/LICENSE) [![Stars](https://img.shields.io/github/stars/Bannysukumar/thanvish.com)](https://github.com/Bannysukumar/thanvish.com/stargazers) [![Last commit](https://img.shields.io/github/last-commit/Bannysukumar/thanvish.com)](https://github.com/Bannysukumar/thanvish.com/commits/main)
 
-This repository is public so developers can read the source, reuse it under the MIT License, and send improvements.
+## Overview
 
-## About this project
+Thanvish Travels - Book Your Dream Journey is the site whose HTML title is "Thanvish Travels - Book Your Dream Journey".
 
-Thanvish lives at [`github.com/Bannysukumar/thanvish.com`](https://github.com/Bannysukumar/thanvish.com). Use it as a starting point for a open-source software project, or study how the HTML parts fit together.
 
-## Tech stack
+## Project Structure
 
-- Primary language: **HTML**
-- License: **MIT**
-- Maintainer: [Banny Sukumar](https://github.com/Bannysukumar)
+```text
+thanvish.com/
+├── add-sample-data.html
+├── admin.css
+├── admin.js
+├── all-services.html
+├── cab-services.html
+├── contact.html
+├── dashboard.html
+├── firebase-frontend.html
+├── firebase-setup-instructions.md
+├── firebase-test.html
+├── food-delivery.html
+├── index.html
+```
 
-## Getting started
+## Getting Started
 
 ```bash
 git clone https://github.com/Bannysukumar/thanvish.com.git
 cd thanvish.com
 ```
 
-Open the project in your editor. Install dependencies only if this repo already includes a manifest such as `package.json`, `requirements.txt`, or a `.csproj` file.
-
 ## Contributing
 
-Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before you open a pull request.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). Copyright (c) 2026 Banny Sukumar.
+Licensed under MIT. See [LICENSE](LICENSE).
 
 ## Author
+
+[Banny Sukumar](https://github.com/Bannysukumar)
 
 - GitHub: [@Bannysukumar](https://github.com/Bannysukumar)
 - Portfolio: [adepu-sukumar.vercel.app](https://adepu-sukumar.vercel.app/)
 - LinkedIn: [Adepu Sukumar](https://www.linkedin.com/in/adepu-sukumar-59b423351)
-- ORCID: [0009-0007-9766-6579](https://orcid.org/0009-0007-9766-6579)
